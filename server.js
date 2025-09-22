@@ -60,7 +60,8 @@ const teamRoutes = require('./routes/teams');
 const payoutRoutes = require('./routes/payouts');
 const adminRoutes = require('./routes/admin');
 
-app.use('/api/auth', strictLimiter);
+// Rate limiting disabled for development
+// app.use('/api/auth', strictLimiter);
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/sales', salesRoutes);

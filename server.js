@@ -9,6 +9,8 @@ const app = express();
 
 app.use(helmet());
 
+app.set('trust proxy', true);
+
 const corsOptions = {
   origin: process.env.NODE_ENV === 'production'
     ? ['https://sales.fyxedbv.nl']

@@ -8,6 +8,7 @@ const Navbar = () => {
   const location = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [trainingDropdownOpen, setTrainingDropdownOpen] = useState(false);
 
   useEffect(() => {
     const checkIfMobile = () => {
@@ -25,6 +26,16 @@ const Navbar = () => {
     { path: '/sales', label: 'Sales', icon: '🚀' },
     { path: '/earnings', label: 'Verdiensten', icon: '💎' },
     { path: '/invoices', label: 'Facturen', icon: '📡' },
+    {
+      path: '/training',
+      label: 'Training',
+      icon: '📚',
+      dropdown: true,
+      items: [
+        { href: '/training/sales-playbook.html', label: 'Sales Playbook (English)', flag: '🇺🇸' },
+        { href: '/training/sales-playbook-nl.html', label: 'Sales Handboek (Nederlands)', flag: '🇳🇱' }
+      ]
+    },
   ];
 
   // Add role-specific nav items
@@ -122,44 +133,125 @@ const Navbar = () => {
           gap: '6px'
         }}>
           {navItems.map(item => (
-            <Link
-              key={item.path}
-              to={item.path}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '6px',
-                padding: '8px 14px',
-                borderRadius: '8px',
-                textDecoration: 'none',
-                color: isActive(item.path) ? 'var(--neon-blue)' : 'var(--cyber-text)',
-                background: isActive(item.path)
-                  ? 'rgba(0, 212, 255, 0.1)'
-                  : 'transparent',
-                border: isActive(item.path)
-                  ? '1px solid rgba(0, 212, 255, 0.3)'
-                  : '1px solid transparent',
-                transition: 'var(--transition-smooth)',
-                fontSize: '13px',
-                fontWeight: '600',
-                textShadow: isActive(item.path) ? '0 0 8px currentColor' : 'none'
-              }}
-              onMouseEnter={(e) => {
-                if (!isActive(item.path)) {
-                  e.target.style.background = 'rgba(255, 255, 255, 0.05)';
-                  e.target.style.borderColor = 'rgba(255, 255, 255, 0.1)';
-                }
-              }}
-              onMouseLeave={(e) => {
-                if (!isActive(item.path)) {
-                  e.target.style.background = 'transparent';
-                  e.target.style.borderColor = 'transparent';
-                }
-              }}
-            >
-              <span style={{ fontSize: '14px' }}>{item.icon}</span>
-              {item.label}
-            </Link>
+            item.dropdown ? (
+              <div
+                key={item.path}
+                style={{ position: 'relative' }}
+                onMouseEnter={() => setTrainingDropdownOpen(true)}
+                onMouseLeave={() => setTrainingDropdownOpen(false)}
+              >
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                    padding: '8px 14px',
+                    borderRadius: '8px',
+                    textDecoration: 'none',
+                    color: 'var(--cyber-text)',
+                    background: 'transparent',
+                    border: '1px solid transparent',
+                    transition: 'var(--transition-smooth)',
+                    fontSize: '13px',
+                    fontWeight: '600',
+                    cursor: 'pointer'
+                  }}
+                >
+                  <span style={{ fontSize: '14px' }}>{item.icon}</span>
+                  {item.label}
+                  <span style={{ fontSize: '12px', marginLeft: '4px' }}>▼</span>
+                </div>
+
+                {trainingDropdownOpen && (
+                  <div style={{
+                    position: 'absolute',
+                    top: '100%',
+                    left: '0',
+                    zIndex: 1000,
+                    background: 'var(--cyber-card)',
+                    border: '1px solid var(--cyber-border)',
+                    borderRadius: '12px',
+                    boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)',
+                    backdropFilter: 'blur(20px)',
+                    minWidth: '280px',
+                    padding: '8px',
+                    marginTop: '4px'
+                  }}>
+                    {item.items.map(dropdownItem => (
+                      <a
+                        key={dropdownItem.href}
+                        href={dropdownItem.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '12px',
+                          padding: '12px 16px',
+                          borderRadius: '8px',
+                          textDecoration: 'none',
+                          color: 'var(--cyber-text)',
+                          background: 'transparent',
+                          transition: 'var(--transition-smooth)',
+                          fontSize: '13px',
+                          fontWeight: '600'
+                        }}
+                        onMouseEnter={(e) => {
+                          e.target.style.background = 'rgba(75, 172, 254, 0.1)';
+                          e.target.style.color = 'var(--neon-blue)';
+                        }}
+                        onMouseLeave={(e) => {
+                          e.target.style.background = 'transparent';
+                          e.target.style.color = 'var(--cyber-text)';
+                        }}
+                      >
+                        <span style={{ fontSize: '16px' }}>{dropdownItem.flag}</span>
+                        {dropdownItem.label}
+                      </a>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ) : (
+              <Link
+                key={item.path}
+                to={item.path}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  padding: '8px 14px',
+                  borderRadius: '8px',
+                  textDecoration: 'none',
+                  color: isActive(item.path) ? 'var(--neon-blue)' : 'var(--cyber-text)',
+                  background: isActive(item.path)
+                    ? 'rgba(0, 212, 255, 0.1)'
+                    : 'transparent',
+                  border: isActive(item.path)
+                    ? '1px solid rgba(0, 212, 255, 0.3)'
+                    : '1px solid transparent',
+                  transition: 'var(--transition-smooth)',
+                  fontSize: '13px',
+                  fontWeight: '600',
+                  textShadow: isActive(item.path) ? '0 0 8px currentColor' : 'none'
+                }}
+                onMouseEnter={(e) => {
+                  if (!isActive(item.path)) {
+                    e.target.style.background = 'rgba(255, 255, 255, 0.05)';
+                    e.target.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (!isActive(item.path)) {
+                    e.target.style.background = 'transparent';
+                    e.target.style.borderColor = 'transparent';
+                  }
+                }}
+              >
+                <span style={{ fontSize: '14px' }}>{item.icon}</span>
+                {item.label}
+              </Link>
+            )
           ))}
         </div>
 
@@ -303,35 +395,86 @@ const Navbar = () => {
 
           {/* Navigation Items */}
           {navItems.map(item => (
-            <Link
-              key={item.path}
-              to={item.path}
-              onClick={() => setIsMobileMenuOpen(false)}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '16px',
-                padding: '16px 32px',
-                borderRadius: '12px',
-                textDecoration: 'none',
-                color: isActive(item.path) ? 'var(--neon-blue)' : 'var(--cyber-text)',
-                background: isActive(item.path)
-                  ? 'rgba(0, 212, 255, 0.1)'
-                  : 'rgba(255, 255, 255, 0.05)',
-                border: isActive(item.path)
-                  ? '1px solid rgba(0, 212, 255, 0.3)'
-                  : '1px solid rgba(255, 255, 255, 0.1)',
-                fontSize: '18px',
-                fontWeight: '600',
-                textShadow: isActive(item.path) ? '0 0 10px currentColor' : 'none',
-                minWidth: '200px',
-                justifyContent: 'center',
-                transition: 'var(--transition-smooth)'
-              }}
-            >
-              <span style={{ fontSize: '24px' }}>{item.icon}</span>
-              {item.label}
-            </Link>
+            item.dropdown ? (
+              <div key={item.path} style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '16px',
+                  padding: '16px 32px',
+                  borderRadius: '12px',
+                  background: 'rgba(255, 255, 255, 0.05)',
+                  border: '1px solid rgba(255, 255, 255, 0.1)',
+                  fontSize: '18px',
+                  fontWeight: '600',
+                  color: 'var(--cyber-text)',
+                  minWidth: '200px'
+                }}>
+                  <span style={{ fontSize: '24px' }}>{item.icon}</span>
+                  {item.label}
+                </div>
+                {item.items.map(dropdownItem => (
+                  <a
+                    key={dropdownItem.href}
+                    href={dropdownItem.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      gap: '12px',
+                      padding: '12px 24px',
+                      borderRadius: '8px',
+                      textDecoration: 'none',
+                      color: 'var(--cyber-text)',
+                      background: 'rgba(255, 255, 255, 0.03)',
+                      border: '1px solid rgba(255, 255, 255, 0.05)',
+                      fontSize: '16px',
+                      fontWeight: '500',
+                      minWidth: '180px',
+                      marginLeft: '20px',
+                      transition: 'var(--transition-smooth)'
+                    }}
+                  >
+                    <span style={{ fontSize: '18px' }}>{dropdownItem.flag}</span>
+                    {dropdownItem.label}
+                  </a>
+                ))}
+              </div>
+            ) : (
+              <Link
+                key={item.path}
+                to={item.path}
+                onClick={() => setIsMobileMenuOpen(false)}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '16px',
+                  padding: '16px 32px',
+                  borderRadius: '12px',
+                  textDecoration: 'none',
+                  color: isActive(item.path) ? 'var(--neon-blue)' : 'var(--cyber-text)',
+                  background: isActive(item.path)
+                    ? 'rgba(0, 212, 255, 0.1)'
+                    : 'rgba(255, 255, 255, 0.05)',
+                  border: isActive(item.path)
+                    ? '1px solid rgba(0, 212, 255, 0.3)'
+                    : '1px solid rgba(255, 255, 255, 0.1)',
+                  fontSize: '18px',
+                  fontWeight: '600',
+                  textShadow: isActive(item.path) ? '0 0 10px currentColor' : 'none',
+                  minWidth: '200px',
+                  justifyContent: 'center',
+                  transition: 'var(--transition-smooth)'
+                }}
+              >
+                <span style={{ fontSize: '24px' }}>{item.icon}</span>
+                {item.label}
+              </Link>
+            )
           ))}
 
           {/* Logout Button */}

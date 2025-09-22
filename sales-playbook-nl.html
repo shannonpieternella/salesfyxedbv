@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fyxed B.V. Sales Handboek - Klant Vibe Editie</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: #1a1a1a;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #ffffff;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+            min-height: 100vh;
+        }
+
+        /* PAGE NUMBERS */
+        .page {
+            min-height: 100vh;
+            position: relative;
+            page-break-after: always;
+        }
+
+        .page-number {
+            position: absolute;
+            bottom: 30px;
+            right: 50px;
+            font-size: 0.9rem;
+            color: #64748b;
+            font-weight: 600;
+        }
+
+        /* FRONT COVER */
+        .front-cover {
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 50%, #60a5fa 100%);
+            color: white;
+            padding: 80px 50px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .front-cover::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(circle at 20% 50%, rgba(255,255,255,0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(255,255,255,0.05) 0%, transparent 50%);
+        }
+
+        .front-cover h1 {
+            font-size: 4rem;
+            font-weight: 900;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            position: relative;
+            z-index: 2;
+            letter-spacing: -2px;
+        }
+
+        .front-cover .company {
+            font-size: 3rem;
+            font-weight: 800;
+            color: #fbbf24;
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .front-cover .edition {
+            background: rgba(255,255,255,0.15);
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin: 30px auto;
+            display: inline-block;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            position: relative;
+            z-index: 2;
+        }
+
+        /* SECTIONS */
+        .section {
+            padding: 80px 50px;
+            position: relative;
+            background: #ffffff;
+            color: #1a1a1a;
+        }
+
+        .section:nth-child(even) {
+            background: #f8fafc;
+        }
+
+        .section h2 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 40px;
+            color: #1e40af;
+            text-align: center;
+            position: relative;
+        }
+
+        .section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 5px;
+            background: linear-gradient(135deg, #3b82f6, #60a5fa);
+            border-radius: 3px;
+        }
+
+        /* CARDS */
+        .card {
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 20px;
+            margin: 30px 0;
+            box-shadow: 0 10px 30px rgba(30,64,175,0.1);
+            border: 1px solid rgba(59,130,246,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            color: #1a1a1a;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(30,64,175,0.15);
+        }
+
+        .highlight-card {
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            color: #ffffff;
+            padding: 40px;
+            border-radius: 20px;
+            margin: 40px 0;
+            box-shadow: 0 20px 40px rgba(30,64,175,0.3);
+        }
+
+        .success-card {
+            background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+            color: #ffffff;
+            padding: 40px;
+            border-radius: 20px;
+            margin: 40px 0;
+            box-shadow: 0 20px 40px rgba(5,150,105,0.3);
+        }
+
+        .strategy-card {
+            background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
+            color: #ffffff;
+            padding: 40px;
+            border-radius: 20px;
+            margin: 40px 0;
+            box-shadow: 0 20px 40px rgba(220,38,38,0.3);
+        }
+
+        /* STATS GRID */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin: 50px 0;
+        }
+
+        .stat-card {
+            background: #ffffff;
+            padding: 40px 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(30,64,175,0.1);
+            border: 1px solid rgba(59,130,246,0.1);
+            transition: transform 0.3s ease;
+            color: #1a1a1a;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-card .number {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: #1e40af;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .stat-card .label {
+            color: #64748b;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .front-cover h1 { font-size: 2.5rem; }
+            .front-cover .company { font-size: 2rem; }
+            .section { padding: 60px 30px; }
+            .front-cover { padding: 60px 30px; }
+        }
+
+        @media print {
+            body {
+                background: white !important;
+                -webkit-print-color-adjust: exact !important;
+                color-adjust: exact !important;
+            }
+            .container {
+                box-shadow: none !important;
+                max-width: none !important;
+                margin: 0 !important;
+            }
+            .page {
+                page-break-after: always !important;
+                break-after: page !important;
+            }
+            * {
+                -webkit-print-color-adjust: exact !important;
+                color-adjust: exact !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- FRONT COVER -->
+        <div class="page front-cover">
+            <div class="company">FYXED B.V.</div>
+            <h1>SALES HANDBOEK</h1>
+            <div class="edition">Klant Vibe Editie 2025</div>
+
+            <div style="position: relative; z-index: 2; margin-top: 60px; padding: 30px; background: rgba(255,255,255,0.1); border-radius: 20px; backdrop-filter: blur(10px);">
+                <h3 style="font-size: 1.8rem; margin-bottom: 25px;">AI-als-een-Service: Start als Klant, Sluit als Expert</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; font-size: 1.1rem;">
+                    <div>🎭 Klant vibe aanpak (geen verkoopweerstand)</div>
+                    <div>💰 100% betaal-per-gebruik (geen voorafgaande kosten)</div>
+                    <div>📞 10+ extra afspraken gegarandeerd</div>
+                    <div>🔄 Oude leads reactivatie bonus</div>
+                </div>
+            </div>
+
+            <div style="position: relative; z-index: 2; margin-top: 50px;">
+                <p style="font-size: 1.2rem; opacity: 0.9;">
+                    📍 Arnhem, Nederland | 🌐 fyxedbv.nl
+                </p>
+                <p style="font-size: 1rem; opacity: 0.8; margin-top: 20px;">
+                    "Wij zijn geen software - wij zijn AI medewerkers als-een-service"
+                </p>
+            </div>
+        </div>
+
+        <!-- STRATEGY OVERVIEW -->
+        <div class="page section">
+            <h2>De Klant Vibe Strategie</h2>
+
+            <div class="strategy-card">
+                <h3 style="font-size: 2.2rem; margin-bottom: 25px; text-align: center;">🧠 WAAROM KLANT VIBE WEERSTAND ELIMINEERT</h3>
+                <div style="font-size: 1.3rem; line-height: 1.8; text-align: center;">
+                    <p><strong>Menselijke Psychologie:</strong> Mensen helpen graag potentiële klanten</p>
+                    <p><strong>Nul Bedreiging:</strong> Geen verkoopdruk waargenomen = muren blijven laag</p>
+                    <p><strong>Natuurlijke Flow:</strong> Van behulpzame reactie naar zakelijk gesprek</p>
+                    <p><strong>Vertrouwen Opbouwen:</strong> Transparante onthulling creëert geloofwaardigheid</p>
+                </div>
+            </div>
+
+            <div class="highlight-card">
+                <h3 style="font-size: 2rem; margin-bottom: 25px; text-align: center;">📞 HET BEWEZEN 4-STAPPEN SCRIPT</h3>
+                <div style="background: rgba(255,255,255,0.1); padding: 30px; border-radius: 15px;">
+                    <div style="margin-bottom: 30px; padding: 25px; background: rgba(255,255,255,0.1); border-radius: 12px; border-left: 5px solid #fbbf24;">
+                        <h4 style="color: #fbbf24; margin-bottom: 15px; font-size: 1.4rem;">STAP 1: KLANT VIBE (Geen Verkoop)</h4>
+                        <p style="font-size: 1.2rem; margin-bottom: 10px;"><strong>"Hallo, korte praktische vraag: Hoe snel reageren jullie normaal gesproken als iemand belt of een vraag stelt?"</strong></p>
+                        <p>→ Start als potentiële klant, niet als verkoper</p>
+                        <p>→ Focus op hun servicesnelheid/kwaliteit</p>
+                        <p>→ 85% reageert omdat het klinkt als klantonderzoek</p>
+                    </div>
+
+                    <div style="margin-bottom: 30px; padding: 25px; background: rgba(255,255,255,0.1); border-radius: 12px; border-left: 5px solid #fbbf24;">
+                        <h4 style="color: #fbbf24; margin-bottom: 15px; font-size: 1.4rem;">STAP 2: BESCHIKBAARHEIDSCHECK</h4>
+                        <p style="font-size: 1.2rem; margin-bottom: 10px;"><strong>"Prima, duidelijk. En nemen jullie momenteel nieuwe klanten aan, of zitten jullie helemaal vol?"</strong></p>
+                        <p>→ Bevestigt dat zij nieuwe zaken willen</p>
+                        <p>→ Klinkt alsof je hen overweegt</p>
+                        <p>→ Zet hen in "klantwerving" mindset</p>
+                    </div>
+
+                    <div style="margin-bottom: 30px; padding: 25px; background: rgba(255,255,255,0.1); border-radius: 12px; border-left: 5px solid #fbbf24;">
+                        <h4 style="color: #fbbf24; margin-bottom: 15px; font-size: 1.4rem;">STAP 3: SOEPELE OVERGANG</h4>
+                        <p style="font-size: 1.2rem; margin-bottom: 10px;"><strong>"Perfect, goed om te horen dat er ruimte is voor nieuwe klanten. Ik ben [naam] van Fyxed B.V. uit Arnhem. Wij helpen bedrijven in de regio met 10+ extra afspraken per maand via een AI Receptionist die nooit een oproep mist."</strong></p>
+                        <p>→ Transparante onthulling bouwt vertrouwen op</p>
+                        <p>→ Directe waardepropositie</p>
+                        <p>→ Gelokaliseerd en specifiek voordeel</p>
+                    </div>
+
+                    <div style="padding: 25px; background: rgba(255,255,255,0.1); border-radius: 12px; border-left: 5px solid #fbbf24;">
+                        <h4 style="color: #fbbf24; margin-bottom: 15px; font-size: 1.4rem;">STAP 4: GRATIS INSTALLATIE AANBOD</h4>
+                        <p style="font-size: 1.2rem; margin-bottom: 10px;"><strong>"De installatie is volledig gratis en je betaalt alleen per gebruik/minuut - net als een gewoon telefoongesprek, maar in plaats van met iemand te praten, heb je een digitale medewerker die je bedrijf runt. Als bonus reactiveren we ook je oude leads die stof verzamelen. Zal ik een gratis AI Receptionist voor je installeren zodat je kunt zien hoeveel extra afspraken er binnenkomen?"</strong></p>
+                        <div style="background: rgba(251,191,36,0.2); padding: 15px; border-radius: 8px; font-weight: 700; text-align: center; margin-top: 15px; color: #fbbf24;">
+                            90% ZEGT JA - GEEN RISICO, ALLE VOORDELEN!
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="number">85%</span>
+                    <span class="label">Reageert op Stap 1</span>
+                </div>
+                <div class="stat-card">
+                    <span class="number">90%</span>
+                    <span class="label">JA op Stap 2</span>
+                </div>
+                <div class="stat-card">
+                    <span class="number">95%</span>
+                    <span class="label">Luistert naar Stap 3</span>
+                </div>
+                <div class="stat-card">
+                    <span class="number">90%</span>
+                    <span class="label">Accepteert Gratis Installatie</span>
+                </div>
+            </div>
+
+            <div class="page-number">Pagina 2</div>
+        </div>
+
+        <!-- AI SERVICE POSITIONING -->
+        <div class="page section">
+            <h2>AI-als-een-Service Positionering</h2>
+
+            <div class="highlight-card">
+                <h3 style="font-size: 2.2rem; margin-bottom: 25px; text-align: center;">🤖 WIJ ZIJN GEEN SOFTWARE - WIJ ZIJN AI MEDEWERKERS</h3>
+                <div style="background: rgba(255,255,255,0.1); padding: 30px; border-radius: 15px;">
+                    <h4 style="font-size: 1.5rem; margin-bottom: 20px; text-align: center; color: #fbbf24;">De Perfecte Positionering:</h4>
+                    <div style="font-size: 1.4rem; line-height: 2; text-align: center;">
+                        <p><strong>"Fyxed is geen softwarepakket - wij zijn een AI medewerker service"</strong></p>
+                        <p><strong>"Je betaalt geen licentiekosten of retainers - alleen per gebruik"</strong></p>
+                        <p><strong>"Zoals prepaid telefoonservice - 100% transparant"</strong></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="strategy-card">
+                <h3 style="font-size: 2rem; margin-bottom: 25px; text-align: center;">💰 DE PREPAID TELEFOON ANALOGIE</h3>
+                <div style="background: rgba(255,255,255,0.1); padding: 30px; border-radius: 15px;">
+                    <div style="font-size: 1.3rem; line-height: 2; text-align: center;">
+                        <p><strong>"Net zoals je telefoonabonnement - je betaalt alleen voor wat je gebruikt"</strong></p>
+                        <p style="margin: 20px 0;"><strong>"Geen maandkosten, geen contracten, geen verrassingen"</strong></p>
+                        <p><strong>"Betaal per minuut terwijl de AI je bedrijf runt"</strong></p>
+                        <p style="font-size: 1.5rem; font-weight: 800; color: #fbbf24; margin-top: 25px;">
+                            = TRANSPARANT, EERLIJK, RISICOVRIJ! 🎯
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="success-card">
+                <h3 style="font-size: 2rem; margin-bottom: 25px; text-align: center;">🔥 KLANT WAARDE VOORBEELDEN</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; font-size: 1.2rem; line-height: 1.8;">
+                    <div style="text-align: center;">
+                        <h4 style="color: #fbbf24; margin-bottom: 15px;">🍕 Restaurant</h4>
+                        <p>AI kosten: €300/maand</p>
+                        <p>Extra bestellingen: 50/maand</p>
+                        <p>Omzettoename: €2.650</p>
+                        <p style="font-weight: 800; color: #fbbf24;">ROI: 883%</p>
+                    </div>
+                    <div style="text-align: center;">
+                        <h4 style="color: #fbbf24; margin-bottom: 15px;">🏠 Makelaarskantoor</h4>
+                        <p>AI kosten: €400/maand</p>
+                        <p>Extra verkopen: 2/maand</p>
+                        <p>Commissie: €19.000</p>
+                        <p style="font-weight: 800; color: #fbbf24;">ROI: 4.750%</p>
+                    </div>
+                    <div style="text-align: center;">
+                        <h4 style="color: #fbbf24; margin-bottom: 15px;">🚗 Autogarage</h4>
+                        <p>AI kosten: €250/maand</p>
+                        <p>Extra services: 15/maand</p>
+                        <p>Omzet: €4.500</p>
+                        <p style="font-weight: 800; color: #fbbf24;">ROI: 1.800%</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page-number">Pagina 3</div>
+        </div>
+
+        <!-- AGENT EARNINGS -->
+        <div class="page section">
+            <h2>Agent Verdien Potentieel</h2>
+
+            <div class="success-card">
+                <h3 style="font-size: 2.2rem; margin-bottom: 25px; text-align: center;">💰 HOE AGENTS €10K+ PER MAAND VERDIENEN</h3>
+                <div style="font-size: 1.3rem; line-height: 1.8; text-align: center;">
+                    <p><strong>✅ FYXED VERDIENT:</strong> 20 cent winst per minuut AI gebruik</p>
+                    <p><strong>✅ AGENT KRIJGT:</strong> 50% commissie = 10 cent per minuut</p>
+                    <p><strong>✅ MEER KLANT GEBRUIK:</strong> Meer geld voor beide partijen</p>
+                    <p><strong>✅ TERUGKERENDE INKOMSTEN:</strong> Maandelijkse verdiensten van actieve klanten</p>
+                    <p style="font-size: 1.6rem; color: #fbbf24; font-weight: 800; margin-top: 20px;">
+                        BOUW JE €10K+ MAANDELIJKSE INKOMEN OP! 🎯
+                    </p>
+                </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin: 40px 0;">
+
+                <div class="card">
+                    <h3 style="color: #1e40af; font-size: 1.6rem; margin-bottom: 20px; text-align: center;">📊 VERDIENSTEN UITSPLITSING</h3>
+                    <div style="font-size: 1.1rem; line-height: 1.8; color: #374151;">
+                        <p><strong>5 minuten gebruik:</strong> Fyxed verdient €1,00</p>
+                        <p><strong>Agent commissie:</strong> €0,50 (50%)</p>
+                        <p style="margin: 15px 0; padding: 15px; background: #f1f5f9; border-radius: 8px;">
+                            <strong>Voorbeeld:</strong> Klant gebruikt AI 60 minuten/dag<br>
+                            Dagelijks: €6,00 agent commissie<br>
+                            Maandelijks: €180 per klant
+                        </p>
+                        <p style="color: #059669; font-weight: 800;"><strong>55 actieve klanten = €9.900/maand!</strong></p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3 style="color: #1e40af; font-size: 1.6rem; margin-bottom: 20px; text-align: center;">🚀 PAD NAAR €10K/MAAND</h3>
+                    <div style="font-size: 1.1rem; line-height: 1.8; color: #374151;">
+                        <p><strong>Maand 1:</strong> 10 klanten × 30 min/dag = €900</p>
+                        <p><strong>Maand 2:</strong> 20 klanten × 35 min/dag = €2.100</p>
+                        <p><strong>Maand 3:</strong> 35 klanten × 40 min/dag = €4.200</p>
+                        <p><strong>Maand 6:</strong> 55 klanten × 60 min/dag = €9.900</p>
+                        <p style="color: #059669; font-weight: 800; margin-top: 15px;"><strong>DOEL BEREIKT: €10K+ maandelijks!</strong></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="highlight-card">
+                <h3 style="font-size: 2rem; margin-bottom: 25px; text-align: center;">📈 DAGELIJKSE SUCCES FORMULE</h3>
+                <div style="font-size: 1.4rem; line-height: 2; text-align: center;">
+                    <p><strong>20 Klant Vibe Gesprekken</strong> = 2-4 geïnteresseerde prospects</p>
+                    <p><strong>2-4 Prospects</strong> = 1-2 gratis installaties gepland</p>
+                    <p><strong>1-2 Installaties</strong> = €2.000-7.000+ maandelijkse terugkerende omzet</p>
+                    <p style="color: #fbbf24; font-weight: 800; font-size: 1.6rem; margin-top: 20px;">
+                        = €40.000-140.000+ JAARLIJKSE TERUGKERENDE OMZET PER DAG! 💰
+                    </p>
+                </div>
+            </div>
+
+            <div class="page-number">Pagina 4</div>
+        </div>
+
+        <!-- FINAL CTA PAGE -->
+        <div class="page" style="background: linear-gradient(135deg, #1e40af 0%, #3b82f6 50%, #60a5fa 100%); color: white; padding: 100px 50px; text-align: center; position: relative; overflow: hidden; min-height: 100vh; display: flex; flex-direction: column; justify-content: center;">
+            <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(circle at 30% 40%, rgba(255,255,255,0.1) 0%, transparent 50%), radial-gradient(circle at 70% 80%, rgba(255,255,255,0.05) 0%, transparent 50%);"></div>
+
+            <h2 style="color: white; font-size: 3.5rem; margin-bottom: 30px; position: relative; z-index: 2;">KLAAR OM TE IMPLEMENTEREN?</h2>
+            <p style="font-size: 1.8rem; margin-bottom: 50px; position: relative; z-index: 2;">
+                Je hebt nu de complete Klant Vibe strategie...<br>
+                <strong>Tijd om het in actie te zetten en de resultaten te zien!</strong>
+            </p>
+
+            <div style="background: rgba(255,255,255,0.1); padding: 30px; border-radius: 20px; margin: 50px auto; position: relative; z-index: 2; backdrop-filter: blur(10px); max-width: 600px;">
+                <h4 style="font-size: 1.4rem; margin-bottom: 20px;">🚀 JOUW VOLGENDE STAPPEN</h4>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; font-size: 1.1rem; line-height: 1.8;">
+                    <div>✅ Oefen het 4-stappen script</div>
+                    <div>✅ Bereid je prospect lijst voor</div>
+                    <div>✅ Begin vandaag met 20 gesprekken</div>
+                    <div>✅ Houd je resultaten bij</div>
+                </div>
+            </div>
+
+            <div style="position: relative; z-index: 2; margin-top: 50px;">
+                <h3 style="font-size: 2rem; margin-bottom: 20px;">De Klant Vibe Revolutie</h3>
+                <p style="font-size: 1.3rem; opacity: 0.95;">
+                    💰 <strong>90% conversie naar gratis installatie</strong><br>
+                    🎯 <strong>€60K+ maandelijks terugkerende omzet potentieel</strong><br>
+                    🚀 <strong>Nul weerstand, maximale resultaten</strong>
+                </p>
+            </div>
+
+            <div style="position: relative; z-index: 2; margin-top: 50px;">
+                <p style="font-size: 1.2rem; opacity: 0.9;">
+                    🌐 fyxedbv.nl | 📍 Arnhem, Nederland
+                </p>
+                <p style="font-size: 1rem; opacity: 0.8; margin-top: 20px;">
+                    © 2025 Fyxed B.V. - Klant Vibe Sales Handboek - Nederlandse Editie
+                </p>
+            </div>
+
+            <div class="page-number" style="color: rgba(255,255,255,0.8);">Pagina 5</div>
+        </div>
+    </div>
+</body>
+</html>

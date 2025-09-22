@@ -36,6 +36,10 @@ const userSchema = new mongoose.Schema({
     ref: 'User',
     default: null
   },
+  canCreateTeams: {
+    type: Boolean,
+    default: false
+  },
   stripeCustomerId: {
     type: String,
     default: null

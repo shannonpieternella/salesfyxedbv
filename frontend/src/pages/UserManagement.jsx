@@ -79,8 +79,9 @@ const UserManagement = () => {
         if (!confirm(confirmMessage)) return;
       }
 
-      await usersAPI.updateUser(userId, updates);
-      setUsers(prev => prev.map(u => u._id === userId ? { ...u, ...updates } : u));
+      const response = await usersAPI.updateUser(userId, updates);
+      // Refetch users to get updated sponsor data
+      await fetchUsers();
       setShowModal(false);
 
       if (isTransferring) {
@@ -615,7 +616,7 @@ const UserManagement = () => {
                     <input
                       type="text"
                       className="cyber-input"
-                      defaultValue={selectedUser.name}
+                      value={selectedUser.name}
                       onChange={(e) => setSelectedUser(prev => ({ ...prev, name: e.target.value }))}
                     />
                   </div>
@@ -625,7 +626,7 @@ const UserManagement = () => {
                     <input
                       type="email"
                       className="cyber-input"
-                      defaultValue={selectedUser.email}
+                      value={selectedUser.email}
                       onChange={(e) => setSelectedUser(prev => ({ ...prev, email: e.target.value }))}
                     />
                   </div>
@@ -635,7 +636,7 @@ const UserManagement = () => {
                       <label className="cyber-label">ROLE</label>
                       <select
                         className="cyber-input"
-                        defaultValue={selectedUser.role}
+                        value={selectedUser.role}
                         onChange={(e) => setSelectedUser(prev => ({ ...prev, role: e.target.value }))}
                       >
                         <option value="agent">Agent</option>
@@ -649,7 +650,7 @@ const UserManagement = () => {
                     <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                       <input
                         type="checkbox"
-                        defaultChecked={selectedUser.canCreateTeams}
+                        checked={selectedUser.canCreateTeams}
                         onChange={(e) => setSelectedUser(prev => ({ ...prev, canCreateTeams: e.target.checked }))}
                         style={{ transform: 'scale(1.5)' }}
                       />
@@ -772,7 +773,7 @@ const UserManagement = () => {
                 <label className="cyber-label">SELECT LEADER/SPONSOR</label>
                 <select
                   className="cyber-input"
-                  defaultValue={selectedUser.sponsorId || ''}
+                  value={selectedUser.sponsorId || ''}
                   onChange={(e) => setSelectedUser(prev => ({ ...prev, sponsorId: e.target.value }))}
                 >
                   <option value="">No Leader/Sponsor</option>

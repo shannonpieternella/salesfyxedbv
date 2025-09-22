@@ -109,7 +109,7 @@ router.get('/:id', authenticateToken, requireOwnerOrSelf, validateObjectId, asyn
 
 router.patch('/:id', authenticateToken, requireRole('owner'), validateObjectId, async (req, res) => {
   try {
-    const { role, sponsorId, active, name, email, phone } = req.body;
+    const { role, sponsorId, active, name, email, phone, canCreateTeams } = req.body;
 
     const user = await User.findById(req.params.id);
     if (!user) {
@@ -144,6 +144,7 @@ router.patch('/:id', authenticateToken, requireRole('owner'), validateObjectId, 
     if (name !== undefined) updateData.name = name;
     if (email !== undefined) updateData.email = email;
     if (phone !== undefined) updateData.phone = phone;
+    if (canCreateTeams !== undefined) updateData.canCreateTeams = canCreateTeams;
 
     const updatedUser = await User.findByIdAndUpdate(
       req.params.id,

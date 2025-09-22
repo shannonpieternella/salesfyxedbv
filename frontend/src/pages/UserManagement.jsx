@@ -109,9 +109,9 @@ const UserManagement = () => {
   const handleAssignSponsor = async (userId, sponsorId) => {
     try {
       await usersAPI.updateUser(userId, { sponsorId: sponsorId || null });
-      setUsers(prev => prev.map(u =>
-        u._id === userId ? { ...u, sponsorId: sponsorId || null } : u
-      ));
+      // Refetch users to get updated sponsor data with populated fields
+      await fetchUsers();
+      setShowModal(false);
       alert('Sponsor/Team Leader succesvol toegewezen!');
     } catch (error) {
       alert(error.response?.data?.error || 'Fout bij toewijzen sponsor');

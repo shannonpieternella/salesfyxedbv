@@ -72,7 +72,21 @@ app.use('/api/payouts', payoutRoutes);
 app.use('/api/admin', adminRoutes);
 
 // Serve training materials
-app.use('/training', express.static('frontend/public/training'));
+const path = require('path');
+app.use('/training', express.static(path.join(__dirname, 'frontend/public/training')));
+
+// Serve built frontend files
+app.use(express.static(path.join(__dirname, 'frontend/dist')));
+
+// SPA fallback - serve index.html for all non-API routes
+app.get('*', (req, res, next) => {
+  // Skip API routes and training routes
+  if (req.path.startsWith('/api/') || req.path.startsWith('/training/')) {
+    return next();
+  }
+
+  res.sendFile(path.join(__dirname, 'frontend/dist/index.html'));
+});
 
 app.get('/api/health', (req, res) => {
   res.json({

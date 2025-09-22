@@ -78,16 +78,6 @@ app.use('/training', express.static(path.join(__dirname, 'frontend/public/traini
 // Serve built frontend files
 app.use(express.static(path.join(__dirname, 'frontend/dist')));
 
-// SPA fallback - serve index.html for all non-API routes
-app.get('*', (req, res, next) => {
-  // Skip API routes and training routes
-  if (req.path.startsWith('/api/') || req.path.startsWith('/training/')) {
-    return next();
-  }
-
-  res.sendFile(path.join(__dirname, 'frontend/dist/index.html'));
-});
-
 app.get('/api/health', (req, res) => {
   res.json({
     status: 'OK',
@@ -116,12 +106,18 @@ app.get('/api', (req, res) => {
   });
 });
 
-app.use((req, res) => {
-  res.status(404).json({
-    error: 'Endpoint niet gevonden',
-    path: req.path,
-    method: req.method
-  });
+// SPA fallback - serve index.html for all non-API routes
+app.get('*', (req, res, next) => {
+  // Skip API routes and training routes
+  if (req.path.startsWith('/api/') || req.path.startsWith('/training/')) {
+    return res.status(404).json({
+      error: 'Endpoint niet gevonden',
+      path: req.path,
+      method: req.method
+    });
+  }
+
+  res.sendFile(path.join(__dirname, 'frontend/dist/index.html'));
 });
 
 app.use((error, req, res, next) => {

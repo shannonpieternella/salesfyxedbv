@@ -1,0 +1,1499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fyxed B.V. Sales Playbook - Customer Vibe Edition</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: #1a1a1a;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #ffffff;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+            min-height: 100vh;
+        }
+
+        /* PAGE NUMBERS */
+        .page {
+            min-height: 100vh;
+            position: relative;
+            page-break-after: always;
+        }
+
+        .page-number {
+            position: absolute;
+            bottom: 30px;
+            right: 50px;
+            font-size: 0.9rem;
+            color: #64748b;
+            font-weight: 600;
+        }
+
+        /* FRONT COVER */
+        .front-cover {
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 50%, #60a5fa 100%);
+            color: white;
+            padding: 80px 50px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .front-cover::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(circle at 20% 50%, rgba(255,255,255,0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(255,255,255,0.05) 0%, transparent 50%);
+        }
+
+        .front-cover h1 {
+            font-size: 4rem;
+            font-weight: 900;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            position: relative;
+            z-index: 2;
+            letter-spacing: -2px;
+        }
+
+        .front-cover .company {
+            font-size: 3rem;
+            font-weight: 800;
+            color: #fbbf24;
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .front-cover .edition {
+            background: rgba(255,255,255,0.15);
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin: 30px auto;
+            display: inline-block;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            position: relative;
+            z-index: 2;
+        }
+
+        /* SECTIONS */
+        .section {
+            padding: 80px 50px;
+            position: relative;
+            background: #ffffff;
+            color: #1a1a1a;
+        }
+
+        .section:nth-child(even) {
+            background: #f8fafc;
+        }
+
+        .section h2 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 40px;
+            color: #1e40af;
+            text-align: center;
+            position: relative;
+        }
+
+        .section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 5px;
+            background: linear-gradient(135deg, #3b82f6, #60a5fa);
+            border-radius: 3px;
+        }
+
+        /* CARDS */
+        .card {
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 20px;
+            margin: 30px 0;
+            box-shadow: 0 10px 30px rgba(30,64,175,0.1);
+            border: 1px solid rgba(59,130,246,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            color: #1a1a1a;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(30,64,175,0.15);
+        }
+
+        .highlight-card {
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            color: #ffffff;
+            padding: 40px;
+            border-radius: 20px;
+            margin: 40px 0;
+            box-shadow: 0 20px 40px rgba(30,64,175,0.3);
+        }
+
+        .success-card {
+            background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+            color: #ffffff;
+            padding: 40px;
+            border-radius: 20px;
+            margin: 40px 0;
+            box-shadow: 0 20px 40px rgba(5,150,105,0.3);
+        }
+
+        .strategy-card {
+            background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
+            color: #ffffff;
+            padding: 40px;
+            border-radius: 20px;
+            margin: 40px 0;
+            box-shadow: 0 20px 40px rgba(220,38,38,0.3);
+        }
+
+        /* STATS GRID */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin: 50px 0;
+        }
+
+        .stat-card {
+            background: #ffffff;
+            padding: 40px 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(30,64,175,0.1);
+            border: 1px solid rgba(59,130,246,0.1);
+            transition: transform 0.3s ease;
+            color: #1a1a1a;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-card .number {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: #1e40af;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .stat-card .label {
+            color: #64748b;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        /* STEPS */
+        .steps {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            margin: 50px 0;
+        }
+
+        .step {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            padding: 40px;
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(30,64,175,0.1);
+            border: 1px solid rgba(59,130,246,0.1);
+            transition: transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            color: #1a1a1a;
+        }
+
+        .step::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 6px;
+            background: linear-gradient(135deg, #3b82f6, #60a5fa);
+        }
+
+        .step:hover {
+            transform: translateX(10px);
+        }
+
+        .step-number {
+            background: linear-gradient(135deg, #1e40af, #3b82f6);
+            color: #ffffff;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 900;
+            flex-shrink: 0;
+            box-shadow: 0 10px 25px rgba(30,64,175,0.3);
+        }
+
+        .step-content h3 {
+            font-size: 1.8rem;
+            color: #1e40af;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .step-content p {
+            color: #475569;
+            font-size: 1.2rem;
+            line-height: 1.7;
+        }
+
+        /* TESTIMONIAL */
+        .testimonial {
+            background: #ffffff;
+            padding: 50px;
+            border-radius: 20px;
+            margin: 50px 0;
+            box-shadow: 0 15px 35px rgba(30,64,175,0.1);
+            border-left: 8px solid #3b82f6;
+            position: relative;
+            color: #1a1a1a;
+        }
+
+        .testimonial::before {
+            content: '"';
+            position: absolute;
+            top: -15px;
+            left: 30px;
+            font-size: 5rem;
+            color: #3b82f6;
+            font-family: serif;
+            opacity: 0.3;
+        }
+
+        .testimonial p {
+            font-size: 1.3rem;
+            font-style: italic;
+            margin-bottom: 25px;
+            color: #374151;
+            line-height: 1.8;
+        }
+
+        .testimonial .author {
+            color: #1e40af;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        /* SCRIPT BOX */
+        .script-box {
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            color: #ffffff;
+            padding: 50px;
+            border-radius: 20px;
+            margin: 50px 0;
+            box-shadow: 0 20px 40px rgba(30,64,175,0.3);
+        }
+
+        .script-content {
+            background: rgba(255,255,255,0.1);
+            padding: 40px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .script-step {
+            margin-bottom: 40px;
+            padding: 30px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 12px;
+            border-left: 5px solid #fbbf24;
+        }
+
+        .script-step h4 {
+            color: #fbbf24;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+
+        .script-step p {
+            font-size: 1.2rem;
+            line-height: 1.7;
+            margin-bottom: 15px;
+            color: #ffffff;
+        }
+
+        .script-highlight {
+            background: rgba(251,191,36,0.2);
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: 700;
+            text-align: center;
+            margin-top: 15px;
+            color: #fbbf24;
+        }
+
+        /* PASSIVE INCOME GRID */
+        .passive-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            margin: 50px 0;
+        }
+
+        .passive-card {
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            color: #ffffff;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(30,64,175,0.3);
+            transition: transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .passive-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
+            transform: rotate(45deg);
+            transition: transform 0.6s ease;
+        }
+
+        .passive-card:hover {
+            transform: translateY(-10px) scale(1.02);
+        }
+
+        .passive-card:hover::before {
+            transform: rotate(45deg) translate(50%, 50%);
+        }
+
+        .passive-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .passive-card .amount {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: #fbbf24;
+            margin: 20px 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        .passive-card p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            position: relative;
+            z-index: 2;
+            opacity: 0.9;
+        }
+
+        /* TOC */
+        .intro-page {
+            padding: 80px 50px;
+            background: #ffffff;
+            color: #1a1a1a;
+        }
+
+        .intro-page h2 {
+            font-size: 2.5rem;
+            color: #1e40af;
+            margin-bottom: 40px;
+            text-align: center;
+            font-weight: 800;
+        }
+
+        .toc {
+            background: #f8fafc;
+            padding: 40px;
+            border-radius: 15px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .toc h3 {
+            color: #1e40af;
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            font-weight: 700;
+        }
+
+        .toc-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px dotted #cbd5e1;
+            font-size: 1.1rem;
+        }
+
+        .toc-item:last-child {
+            border-bottom: none;
+        }
+
+        .toc-title {
+            font-weight: 600;
+            color: #334155;
+        }
+
+        .toc-page {
+            color: #1e40af;
+            font-weight: 700;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .front-cover h1 { font-size: 2.5rem; }
+            .front-cover .company { font-size: 2rem; }
+            .section { padding: 60px 30px; }
+            .front-cover { padding: 60px 30px; }
+            .intro-page { padding: 60px 30px; }
+            .step { flex-direction: column; text-align: center; }
+        }
+
+        @media print {
+            body {
+                background: white !important;
+                -webkit-print-color-adjust: exact !important;
+                color-adjust: exact !important;
+            }
+            .container {
+                box-shadow: none !important;
+                max-width: none !important;
+                margin: 0 !important;
+            }
+            .page {
+                page-break-after: always !important;
+                break-after: page !important;
+            }
+            .front-cover, .section, .cta-section, .intro-page {
+                -webkit-print-color-adjust: exact !important;
+                color-adjust: exact !important;
+            }
+            .highlight-card, .success-card, .strategy-card, .passive-card, .money-card {
+                -webkit-print-color-adjust: exact !important;
+                color-adjust: exact !important;
+                break-inside: avoid !important;
+            }
+            .stat-card, .card, .step, .testimonial {
+                break-inside: avoid !important;
+                -webkit-print-color-adjust: exact !important;
+                color-adjust: exact !important;
+            }
+            * {
+                -webkit-print-color-adjust: exact !important;
+                color-adjust: exact !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- FRONT COVER -->
+        <div class="page front-cover">
+            <div class="company">FYXED B.V.</div>
+            <h1>SALES PLAYBOOK</h1>
+            <div class="edition">Customer Vibe Edition 2025</div>
+
+            <div style="position: relative; z-index: 2; margin-top: 60px; padding: 30px; background: rgba(255,255,255,0.1); border-radius: 20px; backdrop-filter: blur(10px);">
+                <h3 style="font-size: 1.8rem; margin-bottom: 25px;">AI-as-a-Service: Start as Customer, Close as Expert</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; font-size: 1.1rem;">
+                    <div>🎭 Customer vibe approach (no sales resistance)</div>
+                    <div>💰 100% pay-per-use (no upfront costs)</div>
+                    <div>📞 10+ extra appointments guaranteed</div>
+                    <div>🔄 Old leads reactivation bonus</div>
+                </div>
+            </div>
+
+            <div style="position: relative; z-index: 2; margin-top: 50px;">
+                <p style="font-size: 1.2rem; opacity: 0.9;">
+                    📍 Arnhem, Netherlands | 🌐 fyxedbv.nl
+                </p>
+                <p style="font-size: 1rem; opacity: 0.8; margin-top: 20px;">
+                    "We're not software - we're AI employees as-a-service"
+                </p>
+            </div>
+        </div>
+
+        <!-- INTRO PAGE -->
+        <div class="page intro-page">
+            <h2>Updated Strategy Overview</h2>
+
+            <div style="background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%); color: white; padding: 30px; border-radius: 15px; margin-bottom: 40px;">
+                <h3 style="font-size: 1.6rem; margin-bottom: 20px;">🎯 The Revolutionary Customer Vibe Approach</h3>
+                <p style="font-size: 1.2rem; line-height: 1.7;">
+                    This updated playbook introduces the proven "Customer Vibe" strategy - start every interaction as a potential customer, not a salesperson. This eliminates sales resistance and creates natural conversation flow toward our AI-as-a-service solution.
+                </p>
+            </div>
+
+            <div class="toc">
+                <h3>📋 Updated Chapters</h3>
+
+                <div class="toc-item">
+                    <span class="toc-title">1. The Customer Vibe Psychology</span>
+                    <span class="toc-page">Page 3</span>
+                </div>
+
+                <div class="toc-item">
+                    <span class="toc-title">2. Official 4-Step Script</span>
+                    <span class="toc-page">Page 4</span>
+                </div>
+
+                <div class="toc-item">
+                    <span class="toc-title">3. AI-as-a-Service Positioning</span>
+                    <span class="toc-page">Page 5</span>
+                </div>
+
+                <div class="toc-item">
+                    <span class="toc-title">4. Pay-per-Use Model Benefits</span>
+                    <span class="toc-page">Page 6</span>
+                </div>
+
+                <div class="toc-item">
+                    <span class="toc-title">5. Old Leads Reactivation Bonus</span>
+                    <span class="toc-page">Page 7</span>
+                </div>
+
+                <div class="toc-item">
+                    <span class="toc-title">6. Execution & Daily Targets</span>
+                    <span class="toc-page">Page 8</span>
+                </div>
+
+                <div class="toc-item">
+                    <span class="toc-title">7. Success Metrics & Growth</span>
+                    <span class="toc-page">Page 9</span>
+                </div>
+
+                <div class="toc-item">
+                    <span class="toc-title">8. Advanced Implementation</span>
+                    <span class="toc-page">Page 10</span>
+                </div>
+            </div>
+
+            <div style="background: #f1f5f9; padding: 30px; border-radius: 15px; margin-top: 40px; border-left: 5px solid #3b82f6;">
+                <h4 style="color: #1e40af; font-size: 1.4rem; margin-bottom: 15px;">🚀 Key Strategy Updates</h4>
+                <div style="color: #475569; font-size: 1.1rem; line-height: 1.7;">
+                    <p style="margin-bottom: 15px;"><strong>🎭 Customer Vibe:</strong> Start as interested customer to eliminate resistance</p>
+                    <p style="margin-bottom: 15px;"><strong>💰 Pay-per-Use:</strong> Only pay when AI delivers results</p>
+                    <p style="margin-bottom: 15px;"><strong>🔄 Lead Recovery:</strong> Reactivate dormant leads for bonus value</p>
+                    <p><strong>📊 Transparent Costs:</strong> No hidden fees, pay only for performance</p>
+                </div>
+            </div>
+
+            <div class="page-number">Page 2</div>
+        </div>
+
+        <!-- CHAPTER 1: CUSTOMER VIBE PSYCHOLOGY -->
+        <div class="page section">
+            <h2>The Customer Vibe Psychology</h2>
+
+            <div class="strategy-card">
+                <h3 style="font-size: 2.2rem; margin-bottom: 25px; text-align: center;">🧠 WHY CUSTOMER VIBE ELIMINATES RESISTANCE</h3>
+                <div style="font-size: 1.3rem; line-height: 1.8; text-align: center;">
+                    <p><strong>Human Psychology:</strong> People love helping potential customers</p>
+                    <p><strong>Zero Threat:</strong> No sales pressure detected = walls stay down</p>
+                    <p><strong>Natural Flow:</strong> From helpful response to business conversation</p>
+                    <p><strong>Trust Building:</strong> Transparent reveal creates credibility</p>
+                </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin: 40px 0;">
+
+                <div class="card">
+                    <h3 style="color: #dc2626; font-size: 1.6rem; margin-bottom: 20px; text-align: center;">❌ TRADITIONAL SALES APPROACH</h3>
+                    <div style="font-size: 1.1rem; line-height: 1.8; color: #374151;">
+                        <p><strong>Opening:</strong> "Hi, I'm calling from Fyxed..."</p>
+                        <p><strong>Immediate reaction:</strong> Sales guard up</p>
+                        <p><strong>Response rate:</strong> 15-20% engage</p>
+                        <p><strong>Outcome:</strong> Rejection, hang-ups, resistance</p>
+                        <p style="color: #dc2626; font-weight: 800; margin-top: 15px;"><strong>Result: High effort, low conversion</strong></p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3 style="color: #059669; font-size: 1.6rem; margin-bottom: 20px; text-align: center;">✅ CUSTOMER VIBE APPROACH</h3>
+                    <div style="font-size: 1.1rem; line-height: 1.8; color: #374151;">
+                        <p><strong>Opening:</strong> "Quick practical question..."</p>
+                        <p><strong>Immediate reaction:</strong> Helpful mode activated</p>
+                        <p><strong>Response rate:</strong> 85-90% engage</p>
+                        <p><strong>Outcome:</strong> Natural conversation, trust</p>
+                        <p style="color: #059669; font-weight: 800; margin-top: 15px;"><strong>Result: Low effort, high conversion</strong></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="highlight-card">
+                <h3 style="font-size: 2rem; margin-bottom: 25px; text-align: center;">🎯 THE SCIENCE BEHIND IT</h3>
+                <div style="background: rgba(255,255,255,0.1); padding: 30px; border-radius: 15px;">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; font-size: 1.2rem; line-height: 1.8;">
+                        <div>
+                            <h4 style="color: #fbbf24; margin-bottom: 15px;">🧠 Cognitive Response</h4>
+                            <p>When someone sounds like a customer, the brain activates "helper mode" instead of "defense mode"</p>
+                        </div>
+                        <div>
+                            <h4 style="color: #fbbf24; margin-bottom: 15px;">🤝 Trust Building</h4>
+                            <p>Transparent reveal after engagement creates trust through honesty rather than deception</p>
+                        </div>
+                        <div>
+                            <h4 style="color: #fbbf24; margin-bottom: 15px;">🔄 Natural Flow</h4>
+                            <p>Conversation flows naturally from business advice to solution presentation</p>
+                        </div>
+                        <div>
+                            <h4 style="color: #fbbf24; margin-bottom: 15px;">✅ High Success</h4>
+                            <p>90%+ say yes to free installation because no risk or pressure detected</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial">
+                <p>
+                    "I used to dread sales calls - instant hang-ups and rejection. The customer vibe approach changed everything. Now people actually want to talk to me and help me understand their business. It feels natural, not pushy."
+                </p>
+                <div class="author">— Fyxed B.V. Sales Representative</div>
+            </div>
+
+            <div class="page-number">Page 3</div>
+        </div>
+
+        <!-- CHAPTER 2: OFFICIAL 4-STEP SCRIPT -->
+        <div class="page section">
+            <h2>Official 4-Step Customer Vibe Script</h2>
+
+            <div class="script-box">
+                <h3 style="font-size: 2.2rem; margin-bottom: 30px; text-align: center;">📞 THE PROVEN CONVERSION SCRIPT</h3>
+
+                <div class="script-content">
+                    <div class="script-step">
+                        <h4>STEP 1: CUSTOMER VIBE (Zero Sales)</h4>
+                        <p><strong>"Hi, quick practical question: How fast do you usually respond when someone calls or makes an inquiry?"</strong></p>
+                        <p>→ Start as potential customer, not salesperson</p>
+                        <p>→ Focus on their service speed/quality</p>
+                        <p>→ 85% engage because it sounds like customer research</p>
+                        <div class="script-highlight">FIRST YES = Problem Recognition</div>
+                    </div>
+
+                    <div class="script-step">
+                        <h4>STEP 2: AVAILABILITY CHECK</h4>
+                        <p><strong>"Great, clear. And are you actually taking new customers now, or are you completely booked?"</strong></p>
+                        <p>→ Confirms they want new business</p>
+                        <p>→ Sounds like you're considering them</p>
+                        <p>→ Gets them in "customer acquisition" mindset</p>
+                        <div class="script-highlight">SECOND YES = Business Opportunity Confirmed</div>
+                    </div>
+
+                    <div class="script-step">
+                        <h4>STEP 3: SMOOTH TRANSITION</h4>
+                        <p><strong>"Perfect, good to hear there's room for new customers. I'm [name] from Fyxed B.V. in Arnhem. We help businesses in the region get 10+ extra appointments per month with an AI Receptionist that never misses a call."</strong></p>
+                        <p>→ Transparent reveal builds trust</p>
+                        <p>→ Immediate value proposition</p>
+                        <p>→ Localized and specific benefit</p>
+                        <div class="script-highlight">Trust Established + Solution Presented</div>
+                    </div>
+
+                    <div class="script-step">
+                        <h4>STEP 4: FREE INSTALLATION OFFER</h4>
+                        <p><strong>"The installation is completely free and you only pay per use/minute - just like a regular phone call, but instead of talking to someone, you have a digital employee that actually runs your business. As a bonus, we also reactivate your old leads that are gathering dust. Shall I install a free AI Receptionist for you so you can see how many extra appointments come in?"</strong></p>
+                        <div class="script-highlight">90% SAYS YES - NO RISK, ALL UPSIDE!</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="number">85%</span>
+                    <span class="label">Engage on Step 1</span>
+                </div>
+                <div class="stat-card">
+                    <span class="number">90%</span>
+                    <span class="label">YES on Step 2</span>
+                </div>
+                <div class="stat-card">
+                    <span class="number">95%</span>
+                    <span class="label">Listen to Step 3</span>
+                </div>
+                <div class="stat-card">
+                    <span class="number">90%</span>
+                    <span class="label">Accept Free Install</span>
+                </div>
+            </div>
+
+            <div class="success-card">
+                <h3 style="font-size: 2rem; margin-bottom: 25px; text-align: center;">🔥 WHY THIS SCRIPT DOMINATES</h3>
+                <div style="font-size: 1.3rem; line-height: 1.8; text-align: center;">
+                    <p><strong>ZERO RESISTANCE:</strong> No sales detection in first 2 steps</p>
+                    <p><strong>NATURAL FLOW:</strong> Business advice → solution presentation</p>
+                    <p><strong>TRUST BUILDING:</strong> Honest reveal creates credibility</p>
+                    <p><strong>NO RISK OFFER:</strong> Free installation removes all barriers</p>
+                    <p style="color: #fbbf24; font-size: 1.6rem; font-weight: 800; margin-top: 20px;">
+                        = 90% CONVERSION TO FREE INSTALLATION! 🚀
+                    </p>
+                </div>
+            </div>
+
+            <div class="page-number">Page 4</div>
+        </div>
+
+        <!-- CHAPTER 3: AI-AS-A-SERVICE POSITIONING -->
+        <div class="page section">
+            <h2>AI-as-a-Service Positioning</h2>
+
+            <div class="highlight-card">
+                <h3 style="font-size: 2.2rem; margin-bottom: 25px; text-align: center;">🤖 WE'RE NOT SOFTWARE - WE'RE AI EMPLOYEES</h3>
+                <div style="background: rgba(255,255,255,0.1); padding: 30px; border-radius: 15px; margin-bottom: 30px;">
+                    <h4 style="font-size: 1.5rem; margin-bottom: 20px; text-align: center; color: #fbbf24;">The Perfect Positioning:</h4>
+                    <div style="font-size: 1.4rem; line-height: 2; text-align: center;">
+                        <p><strong>"Fyxed is not a software package - we're an AI employee service"</strong></p>
+                        <p><strong>"You don't pay license fees or retainers - only per use"</strong></p>
+                        <p><strong>"Like prepaid phone service - 100% transparent"</strong></p>
+                    </div>
+                </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin: 40px 0;">
+
+                <div class="card">
+                    <h3 style="color: #dc2626; font-size: 1.6rem; margin-bottom: 20px; text-align: center;">❌ SOFTWARE MINDSET</h3>
+                    <div style="font-size: 1.1rem; line-height: 1.8; color: #374151;">
+                        <p><strong>Customer thinks:</strong> "Another tool to learn"</p>
+                        <p><strong>Pricing concerns:</strong> "Monthly subscriptions again"</p>
+                        <p><strong>Implementation fear:</strong> "Complex setup process"</p>
+                        <p><strong>Support worry:</strong> "What if it breaks?"</p>
+                        <p style="color: #dc2626; font-weight: 800; margin-top: 15px;"><strong>Result: Resistance and delays</strong></p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3 style="color: #059669; font-size: 1.6rem; margin-bottom: 20px; text-align: center;">✅ AI EMPLOYEE SERVICE</h3>
+                    <div style="font-size: 1.1rem; line-height: 1.8; color: #374151;">
+                        <p><strong>Customer thinks:</strong> "Getting an extra employee"</p>
+                        <p><strong>Pricing clarity:</strong> "Only pay when working"</p>
+                        <p><strong>Implementation ease:</strong> "We install and manage"</p>
+                        <p><strong>Support confidence:</strong> "Service team handles everything"</p>
+                        <p style="color: #059669; font-weight: 800; margin-top: 15px;"><strong>Result: Excitement and quick decisions</strong></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="strategy-card">
+                <h3 style="font-size: 2rem; margin-bottom: 25px; text-align: center;">💰 THE PREPAID PHONE ANALOGY</h3>
+                <div style="background: rgba(255,255,255,0.1); padding: 30px; border-radius: 15px;">
+                    <div style="font-size: 1.3rem; line-height: 2; text-align: center;">
+                        <p><strong>"Just like your phone plan - you only pay for what you use"</strong></p>
+                        <p style="margin: 20px 0;"><strong>"No monthly fees, no contracts, no surprises"</strong></p>
+                        <p><strong>"Pay per minute while the AI runs your business"</strong></p>
+                        <p style="font-size: 1.5rem; font-weight: 800; color: #fbbf24; margin-top: 25px;">
+                            = TRANSPARENT, FAIR, RISK-FREE! 🎯
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3 style="color: #1e40af; font-size: 1.8rem; margin-bottom: 20px; text-align: center;">🎯 KEY MESSAGING POINTS</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; color: #374151; font-size: 1.1rem; line-height: 1.8;">
+                    <div>
+                        <h4 style="color: #1e40af; margin-bottom: 15px;">🤖 AI Employee</h4>
+                        <p>"24/7 receptionist without salary, vacation pay, or sick days"</p>
+                    </div>
+                    <div>
+                        <h4 style="color: #1e40af; margin-bottom: 15px;">💰 Pay-per-Use</h4>
+                        <p>"Like prepaid phone - only pay when AI is working for you"</p>
+                    </div>
+                    <div>
+                        <h4 style="color: #1e40af; margin-bottom: 15px;">🔧 Full Service</h4>
+                        <p>"We install, manage, and optimize - you just receive more leads"</p>
+                    </div>
+                    <div>
+                        <h4 style="color: #1e40af; margin-bottom: 15px;">📈 Guaranteed Results</h4>
+                        <p>"10+ extra appointments per month or we optimize until you do"</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page-number">Page 5</div>
+        </div>
+
+        <!-- CHAPTER 4: PAY-PER-USE BENEFITS -->
+        <div class="page section">
+            <h2>Pay-per-Use Model Benefits</h2>
+
+            <div class="success-card">
+                <h3 style="font-size: 2.2rem; margin-bottom: 25px; text-align: center;">💰 WHY CUSTOMERS LOVE PAY-PER-USE</h3>
+                <div style="font-size: 1.3rem; line-height: 1.8; text-align: center;">
+                    <p><strong>✅ ZERO RISK:</strong> No upfront investment or commitment</p>
+                    <p><strong>✅ TRANSPARENT COSTS:</strong> See exactly what you pay for</p>
+                    <p><strong>✅ IMMEDIATE ROI:</strong> One new customer covers months of usage</p>
+                    <p><strong>✅ SCALABLE INVESTMENT:</strong> Pay more only when getting more results</p>
+                    <p style="font-size: 1.6rem; color: #fbbf24; font-weight: 800; margin-top: 20px;">
+                        = PERFECT BUSINESS MODEL FOR CUSTOMERS! 🎯
+                    </p>
+                </div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="number">$0</span>
+                    <span class="label">Setup Costs</span>
+                </div>
+                <div class="stat-card">
+                    <span class="number">Pay</span>
+                    <span class="label">Per Results Only</span>
+                </div>
+                <div class="stat-card">
+                    <span class="number">$0</span>
+                    <span class="label">Monthly Retainer</span>
+                </div>
+                <div class="stat-card">
+                    <span class="number">100%</span>
+                    <span class="label">Transparent Pricing</span>
+                </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin: 40px 0;">
+
+                <div class="card">
+                    <h3 style="color: #dc2626; font-size: 1.6rem; margin-bottom: 20px; text-align: center;">❌ TRADITIONAL SOFTWARE PRICING</h3>
+                    <div style="font-size: 1.1rem; line-height: 1.8; color: #374151;">
+                        <p><strong>Setup fee:</strong> $500-2,000</p>
+                        <p><strong>Monthly license:</strong> $200-800</p>
+                        <p><strong>Training costs:</strong> $300-1,000</p>
+                        <p><strong>Support fee:</strong> 20% annually</p>
+                        <p><strong>Usage limits:</strong> Extra fees for overages</p>
+                        <p style="color: #dc2626; font-weight: 800; font-size: 1.2rem; margin-top: 15px;"><strong>Total: $3,000-10,000/year upfront</strong></p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3 style="color: #059669; font-size: 1.6rem; margin-bottom: 20px; text-align: center;">✅ FYXED PAY-PER-USE</h3>
+                    <div style="font-size: 1.1rem; line-height: 1.8; color: #374151;">
+                        <p><strong>Setup fee:</strong> $0 (completely free)</p>
+                        <p><strong>Monthly license:</strong> $0 (no retainer)</p>
+                        <p><strong>Training costs:</strong> $0 (we handle everything)</p>
+                        <p><strong>Support fee:</strong> $0 (included in service)</p>
+                        <p><strong>Usage cost:</strong> Pay only for results delivered</p>
+                        <p style="color: #059669; font-weight: 800; font-size: 1.2rem; margin-top: 15px;"><strong>Typical: $200-500/month after ROI</strong></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="highlight-card">
+                <h3 style="font-size: 2rem; margin-bottom: 25px; text-align: center;">🔥 CUSTOMER VALUE EXAMPLES</h3>
+                <div style="background: rgba(255,255,255,0.1); padding: 30px; border-radius: 15px;">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; font-size: 1.2rem; line-height: 1.8;">
+                        <div style="text-align: center;">
+                            <h4 style="color: #fbbf24; margin-bottom: 15px;">🍕 Restaurant</h4>
+                            <p>AI cost: $300/month</p>
+                            <p>Extra orders: 50/month</p>
+                            <p>Revenue increase: $2,650</p>
+                            <p style="font-weight: 800; color: #fbbf24;">ROI: 883%</p>
+                        </div>
+                        <div style="text-align: center;">
+                            <h4 style="color: #fbbf24; margin-bottom: 15px;">🏠 Real Estate</h4>
+                            <p>AI cost: $400/month</p>
+                            <p>Extra sales: 2/month</p>
+                            <p>Commission: $19,000</p>
+                            <p style="font-weight: 800; color: #fbbf24;">ROI: 4,750%</p>
+                        </div>
+                        <div style="text-align: center;">
+                            <h4 style="color: #fbbf24; margin-bottom: 15px;">🚗 Auto Shop</h4>
+                            <p>AI cost: $250/month</p>
+                            <p>Extra services: 15/month</p>
+                            <p>Revenue: $4,500</p>
+                            <p style="font-weight: 800; color: #fbbf24;">ROI: 1,800%</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial">
+                <p>
+                    "The pay-per-use model was what sold me. No risk, no big upfront investment, and I can see exactly what I'm paying for. After one month, the AI brought in 12 extra customers worth $8,400 in revenue. My AI costs were only $180. It's a no-brainer."
+                </p>
+                <div class="author">— Restaurant Owner, Utrecht</div>
+            </div>
+
+            <div class="page-number">Page 6</div>
+        </div>
+
+        <!-- CHAPTER 5: AGENT EARNINGS MODEL -->
+        <div class="page section">
+            <h2>Agent Earning Potential</h2>
+
+            <div class="success-card">
+                <h3 style="font-size: 2.2rem; margin-bottom: 25px; text-align: center;">💰 HOW AGENTS EARN $10K+ PER MONTH</h3>
+                <div style="font-size: 1.3rem; line-height: 1.8; text-align: center;">
+                    <p><strong>✅ FYXED EARNS:</strong> 20 cents profit per minute AI usage</p>
+                    <p><strong>✅ AGENT GETS:</strong> 50% commission = 10 cents per minute</p>
+                    <p><strong>✅ MORE CLIENT USAGE:</strong> More money for both parties</p>
+                    <p><strong>✅ RECURRING INCOME:</strong> Monthly earnings from active clients</p>
+                    <p style="font-size: 1.6rem; color: #fbbf24; font-weight: 800; margin-top: 20px;">
+                        BUILD YOUR $10K+ MONTHLY INCOME! 🎯
+                    </p>
+                </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin: 40px 0;">
+
+                <div class="card">
+                    <h3 style="color: #1e40af; font-size: 1.6rem; margin-bottom: 20px; text-align: center;">📊 EARNINGS BREAKDOWN</h3>
+                    <div style="font-size: 1.1rem; line-height: 1.8; color: #374151;">
+                        <p><strong>5 minutes usage:</strong> Fyxed earns $1.00</p>
+                        <p><strong>Agent commission:</strong> $0.50 (50%)</p>
+                        <p style="margin: 15px 0; padding: 15px; background: #f1f5f9; border-radius: 8px;">
+                            <strong>Example:</strong> Client uses AI 60 minutes/day<br>
+                            Daily: $6.00 agent commission<br>
+                            Monthly: $180 per client
+                        </p>
+                        <p style="color: #059669; font-weight: 800;"><strong>55 active clients = $9,900/month!</strong></p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3 style="color: #1e40af; font-size: 1.6rem; margin-bottom: 20px; text-align: center;">🚀 PATH TO $10K/MONTH</h3>
+                    <div style="font-size: 1.1rem; line-height: 1.8; color: #374151;">
+                        <p><strong>Month 1:</strong> 10 clients × 30 min/day = $900</p>
+                        <p><strong>Month 2:</strong> 20 clients × 35 min/day = $2,100</p>
+                        <p><strong>Month 3:</strong> 35 clients × 40 min/day = $4,200</p>
+                        <p><strong>Month 6:</strong> 55 clients × 60 min/day = $9,900</p>
+                        <p style="color: #059669; font-weight: 800; margin-top: 15px;"><strong>GOAL ACHIEVED: $10K+ monthly!</strong></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="highlight-card">
+                <h3 style="font-size: 2rem; margin-bottom: 25px; text-align: center;">💼 REAL CLIENT USAGE EXAMPLES</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; font-size: 1.2rem; line-height: 1.8;">
+                    <div style="text-align: center;">
+                        <h4 style="color: #fbbf24; margin-bottom: 15px;">🍕 Restaurant</h4>
+                        <p>60 min/day average usage</p>
+                        <p>Agent earns: $6.00/day</p>
+                        <p style="font-weight: 800; color: #fbbf24;">$180/month per client</p>
+                    </div>
+                    <div style="text-align: center;">
+                        <h4 style="color: #fbbf24; margin-bottom: 15px;">🚗 Driving School</h4>
+                        <p>45 min/day average usage</p>
+                        <p>Agent earns: $4.50/day</p>
+                        <p style="font-weight: 800; color: #fbbf24;">$135/month per client</p>
+                    </div>
+                    <div style="text-align: center;">
+                        <h4 style="color: #fbbf24; margin-bottom: 15px;">🏠 Real Estate</h4>
+                        <p>90 min/day average usage</p>
+                        <p>Agent earns: $9.00/day</p>
+                        <p style="font-weight: 800; color: #fbbf24;">$270/month per client</p>
+                    </div>
+                    <div style="text-align: center;">
+                        <h4 style="color: #fbbf24; margin-bottom: 15px;">🦷 Dental Office</h4>
+                        <p>30 min/day average usage</p>
+                        <p>Agent earns: $3.00/day</p>
+                        <p style="font-weight: 800; color: #fbbf24;">$90/month per client</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="passive-grid">
+                <div class="passive-card">
+                    <h3>20 Clients Portfolio</h3>
+                    <div class="amount">$3K</div>
+                    <p>Average 40 min/day per client<br>20 × $150/month each<br><strong>Monthly recurring: $3,000</strong></p>
+                </div>
+
+                <div class="passive-card">
+                    <h3>40 Clients Portfolio</h3>
+                    <div class="amount">$6K</div>
+                    <p>Average 45 min/day per client<br>40 × $150/month each<br><strong>Monthly recurring: $6,000</strong></p>
+                </div>
+
+                <div class="passive-card">
+                    <h3>55+ Clients Portfolio</h3>
+                    <div class="amount">$10K+</div>
+                    <p>Average 60 min/day per client<br>55 × $180/month each<br><strong>Monthly recurring: $10K+</strong></p>
+                </div>
+            </div>
+
+            <div class="testimonial">
+                <p>
+                    "Once I understood the earning model, everything clicked. Each client I bring in generates recurring monthly income based on how much they use the AI. My restaurant clients average 60 minutes per day, so I earn $180/month from each one. With 35 active clients, I'm making over $4,000/month in recurring commissions."
+                </p>
+                <div class="author">— Fyxed B.V. Sales Agent</div>
+            </div>
+
+            <div class="page-number">Page 7</div>
+        </div>
+
+        <!-- CHAPTER 6: OLD LEADS REACTIVATION -->
+        <div class="page section">
+            <h2>Old Leads Reactivation Bonus</h2>
+
+            <div class="strategy-card">
+                <h3 style="font-size: 2.2rem; margin-bottom: 25px; text-align: center;">🔄 THE HIDDEN GOLDMINE: DORMANT LEADS</h3>
+                <div style="font-size: 1.3rem; line-height: 1.8; text-align: center;">
+                    <p><strong>Research shows:</strong> 79% of all leads are never followed up properly</p>
+                    <p><strong>Reality:</strong> Every business has hundreds of dormant leads</p>
+                    <p><strong>Opportunity:</strong> AI can reactivate 15-30% of old leads</p>
+                    <p><strong>Bonus value:</strong> Immediate extra revenue from existing database</p>
+                </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin: 40px 0;">
+
+                <div class="card">
+                    <h3 style="color: #1e40af; font-size: 1.6rem; margin-bottom: 20px; text-align: center;">📊 TYPICAL BUSINESS SITUATION</h3>
+                    <div style="font-size: 1.1rem; line-height: 1.8; color: #374151;">
+                        <p><strong>CRM database:</strong> 800 leads collected</p>
+                        <p><strong>Converted to customers:</strong> 120 (15%)</p>
+                        <p><strong>Never followed up:</strong> 680 leads (85%)</p>
+                        <p><strong>Lost opportunity:</strong> Hundreds of potential customers</p>
+                        <p style="color: #dc2626; font-weight: 800; margin-top: 15px;"><strong>Sitting on a goldmine collecting dust!</strong></p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3 style="color: #059669; font-size: 1.6rem; margin-bottom: 20px; text-align: center;">🤖 FYXED AI REACTIVATION</h3>
+                    <div style="font-size: 1.1rem; line-height: 1.8; color: #374151;">
+                        <p><strong>AI processes:</strong> All 680 dormant leads</p>
+                        <p><strong>Reactivation rate:</strong> 20% respond (136 leads)</p>
+                        <p><strong>Conversion rate:</strong> 15% convert (20 customers)</p>
+                        <p><strong>Immediate revenue:</strong> $15,000-50,000+</p>
+                        <p style="color: #059669; font-weight: 800; margin-top: 15px;"><strong>Pure profit from forgotten assets!</strong></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="highlight-card">
+                <h3 style="font-size: 2rem; margin-bottom: 25px; text-align: center;">🎯 HOW AI LEAD REACTIVATION WORKS</h3>
+                <div class="steps" style="margin: 0;">
+                    <div class="step" style="background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.2);">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h3 style="color: #fbbf24;">🔍 Database Analysis</h3>
+                            <p style="color: white;">AI analyzes all old leads, identifies re-engagement opportunities, and prioritizes by potential value</p>
+                        </div>
+                    </div>
+
+                    <div class="step" style="background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.2);">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h3 style="color: #fbbf24;">📞 Automated Outreach</h3>
+                            <p style="color: white;">AI conducts personalized follow-up calls, emails, and messages based on original inquiry context</p>
+                        </div>
+                    </div>
+
+                    <div class="step" style="background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.2);">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h3 style="color: #fbbf24;">🎯 Conversion Process</h3>
+                            <p style="color: white;">AI qualifies interested leads, schedules appointments, and hands off warm prospects to sales team</p>
+                        </div>
+                    </div>
+
+                    <div class="step" style="background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.2);">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <h3 style="color: #fbbf24;">💰 Revenue Recovery</h3>
+                            <p style="color: white;">Reactivated leads convert to customers, generating immediate ROI from previously "dead" database</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="success-card">
+                <h3 style="font-size: 2rem; margin-bottom: 25px; text-align: center;">📈 REAL REACTIVATION RESULTS</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; font-size: 1.2rem; line-height: 1.8; text-align: center;">
+                    <div>
+                        <div style="font-size: 2.5rem; color: #fbbf24; font-weight: 900;">€50K</div>
+                        <div>Law Firm - 6 months</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 2.5rem; color: #fbbf24; font-weight: 900;">€800K</div>
+                        <div>Driving School - 12 months</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 2.5rem; color: #fbbf24; font-weight: 900;">€35K</div>
+                        <div>Restaurant - 4 months</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 2.5rem; color: #fbbf24; font-weight: 900;">€120K</div>
+                        <div>Real Estate - 8 months</div>
+                    </div>
+                </div>
+                <p style="font-size: 1.4rem; font-weight: 800; margin-top: 25px; text-align: center;">
+                    ALL FROM LEADS THAT WERE COLLECTING DUST! 🎯
+                </p>
+            </div>
+
+            <div class="page-number">Page 7</div>
+        </div>
+
+        <!-- CHAPTER 6: EXECUTION & DAILY TARGETS -->
+        <div class="page section">
+            <h2>Execution & Daily Targets</h2>
+
+            <div class="highlight-card">
+                <h3 style="font-size: 2rem; margin-bottom: 25px; text-align: center;">🎯 DAILY SUCCESS FORMULA</h3>
+                <div style="font-size: 1.4rem; line-height: 2; text-align: center;">
+                    <p><strong>20 Customer Vibe Calls</strong> = 2-4 interested prospects</p>
+                    <p><strong>2-4 Prospects</strong> = 1-2 free installations scheduled</p>
+                    <p><strong>1-2 Installations</strong> = €2,000-7,000+ monthly recurring revenue</p>
+                    <p style="color: #fbbf24; font-weight: 800; font-size: 1.6rem; margin-top: 20px;">
+                        = €40,000-140,000+ ANNUAL RECURRING REVENUE PER DAY! 💰
+                    </p>
+                </div>
+            </div>
+
+            <div style="background: #f1f5f9; padding: 40px; border-radius: 20px; margin: 40px 0; border: 1px solid #e2e8f0;">
+                <h3 style="color: #1e40af; font-size: 1.8rem; margin-bottom: 25px; text-align: center;">📋 DAILY EXECUTION CHECKLIST</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; color: #374151;">
+                    <div>
+                        <h4 style="color: #059669; font-size: 1.3rem; margin-bottom: 15px;">🌅 MORNING (9:00-12:00)</h4>
+                        <ul style="line-height: 2; font-size: 1.1rem; list-style: none; padding: 0;">
+                            <li>✅ 10 Customer Vibe calls</li>
+                            <li>✅ Schedule 1-2 demos</li>
+                            <li>✅ Follow up warm prospects</li>
+                            <li>✅ Update CRM with results</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 style="color: #059669; font-size: 1.3rem; margin-bottom: 15px;">☀️ AFTERNOON (1:00-5:00)</h4>
+                        <ul style="line-height: 2; font-size: 1.1rem; list-style: none; padding: 0;">
+                            <li>✅ 10 Customer Vibe calls</li>
+                            <li>✅ Conduct 1 installation demo</li>
+                            <li>✅ Process lead reactivation</li>
+                            <li>✅ Prepare next day prospects</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 style="color: #059669; font-size: 1.3rem; margin-bottom: 15px;">🌆 END OF DAY (5:00-6:00)</h4>
+                        <ul style="line-height: 2; font-size: 1.1rem; list-style: none; padding: 0;">
+                            <li>✅ Review daily metrics</li>
+                            <li>✅ Schedule tomorrow's calls</li>
+                            <li>✅ Update pipeline status</li>
+                            <li>✅ Celebrate wins!</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="number">20</span>
+                    <span class="label">Daily Calls Target</span>
+                </div>
+                <div class="stat-card">
+                    <span class="number">85%</span>
+                    <span class="label">Engagement Rate</span>
+                </div>
+                <div class="stat-card">
+                    <span class="number">2</span>
+                    <span class="label">Demos Per Day</span>
+                </div>
+                <div class="stat-card">
+                    <span class="number">90%</span>
+                    <span class="label">Installation Rate</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3 style="color: #1e40af; font-size: 1.8rem; margin-bottom: 20px; text-align: center;">📊 WEEKLY SUCCESS TRACKING</h3>
+                <div style="background: #f8fafc; padding: 30px; border-radius: 15px; border: 1px solid #e2e8f0; margin-top: 20px;">
+                    <div style="display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 20px; font-weight: 600; padding: 15px; background: #1e40af; color: white; border-radius: 8px; margin-bottom: 15px;">
+                        <div>Activity</div>
+                        <div>Target</div>
+                        <div>Actual</div>
+                        <div>Status</div>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 20px; padding: 10px; border-bottom: 1px solid #e2e8f0; color: #374151;">
+                        <div>Customer Vibe Calls</div>
+                        <div>100</div>
+                        <div>___</div>
+                        <div>___</div>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 20px; padding: 10px; border-bottom: 1px solid #e2e8f0; color: #374151;">
+                        <div>Demos Scheduled</div>
+                        <div>10</div>
+                        <div>___</div>
+                        <div>___</div>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 20px; padding: 10px; border-bottom: 1px solid #e2e8f0; color: #374151;">
+                        <div>Free Installations</div>
+                        <div>7</div>
+                        <div>___</div>
+                        <div>___</div>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 20px; padding: 10px; color: #374151;">
+                        <div>Revenue Pipeline</div>
+                        <div>€14K+</div>
+                        <div>___</div>
+                        <div>___</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page-number">Page 8</div>
+        </div>
+
+        <!-- CHAPTER 7: SUCCESS METRICS -->
+        <div class="page section">
+            <h2>Success Metrics & Growth</h2>
+
+            <div style="position: relative; margin: 50px 0;">
+                <div style="position: absolute; left: 50px; top: 0; bottom: 0; width: 4px; background: linear-gradient(135deg, #3b82f6, #60a5fa);"></div>
+
+                <div style="display: flex; align-items: center; margin-bottom: 40px; position: relative;">
+                    <div style="background: linear-gradient(135deg, #1e40af, #3b82f6); color: white; width: 100px; height: 100px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; font-weight: 900; margin-right: 40px; box-shadow: 0 10px 25px rgba(30,64,175,0.3); position: relative; z-index: 2;">30</div>
+                    <div style="flex: 1; background: #ffffff; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(30,64,175,0.1); border: 1px solid rgba(59,130,246,0.1); color: #1a1a1a;">
+                        <h3 style="color: #1e40af; font-size: 1.6rem; margin-bottom: 15px; font-weight: 700;">🚀 MONTH 1: FOUNDATION</h3>
+                        <p style="color: #475569; font-size: 1.1rem; line-height: 1.6;"><strong>Target:</strong> 20 free installations + first results<br>
+                        <strong>Focus:</strong> Master Customer Vibe script, build confidence<br>
+                        <strong>Revenue:</strong> €15,000+ in pipeline</p>
+                    </div>
+                </div>
+
+                <div style="display: flex; align-items: center; margin-bottom: 40px; position: relative;">
+                    <div style="background: linear-gradient(135deg, #1e40af, #3b82f6); color: white; width: 100px; height: 100px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; font-weight: 900; margin-right: 40px; box-shadow: 0 10px 25px rgba(30,64,175,0.3); position: relative; z-index: 2;">60</div>
+                    <div style="flex: 1; background: #ffffff; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(30,64,175,0.1); border: 1px solid rgba(59,130,246,0.1); color: #1a1a1a;">
+                        <h3 style="color: #1e40af; font-size: 1.6rem; margin-bottom: 15px; font-weight: 700;">📈 MONTH 2: SCALING</h3>
+                        <p style="color: #475569; font-size: 1.1rem; line-height: 1.6;"><strong>Target:</strong> 30+ active clients, lead reactivation results<br>
+                        <strong>Focus:</strong> Optimize existing accounts, referral program<br>
+                        <strong>Revenue:</strong> €40,000+ recurring monthly</p>
+                    </div>
+                </div>
+
+                <div style="display: flex; align-items: center; margin-bottom: 40px; position: relative;">
+                    <div style="background: linear-gradient(135deg, #1e40af, #3b82f6); color: white; width: 100px; height: 100px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; font-weight: 900; margin-right: 40px; box-shadow: 0 10px 25px rgba(30,64,175,0.3); position: relative; z-index: 2;">90</div>
+                    <div style="flex: 1; background: #ffffff; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(30,64,175,0.1); border: 1px solid rgba(59,130,246,0.1); color: #1a1a1a;">
+                        <h3 style="color: #1e40af; font-size: 1.6rem; margin-bottom: 15px; font-weight: 700;">🏆 MONTH 3: MASTERY</h3>
+                        <p style="color: #475569; font-size: 1.1rem; line-height: 1.6;"><strong>Target:</strong> €60K+ monthly recurring revenue<br>
+                        <strong>Focus:</strong> Account management, team expansion<br>
+                        <strong>Revenue:</strong> €720K+ annual run rate</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="highlight-card">
+                <h3 style="font-size: 2rem; margin-bottom: 25px; text-align: center;">📊 KEY PERFORMANCE INDICATORS</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; font-size: 1.2rem; line-height: 1.8;">
+                    <div style="text-align: center;">
+                        <h4 style="color: #fbbf24; margin-bottom: 15px;">📞 Call Metrics</h4>
+                        <p>85% engagement rate</p>
+                        <p>90% demo booking rate</p>
+                        <p>20+ calls per day</p>
+                    </div>
+                    <div style="text-align: center;">
+                        <h4 style="color: #fbbf24; margin-bottom: 15px;">🎯 Conversion Metrics</h4>
+                        <p>90% installation rate</p>
+                        <p>70% activation rate</p>
+                        <p>80% retention rate</p>
+                    </div>
+                    <div style="text-align: center;">
+                        <h4 style="color: #fbbf24; margin-bottom: 15px;">💰 Revenue Metrics</h4>
+                        <p>€2,000+ per installation</p>
+                        <p>€60K+ monthly target</p>
+                        <p>€720K+ annual goal</p>
+                    </div>
+                    <div style="text-align: center;">
+                        <h4 style="color: #fbbf24; margin-bottom: 15px;">📈 Growth Metrics</h4>
+                        <p>20% month-over-month</p>
+                        <p>50% client expansion</p>
+                        <p>25% referral rate</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="success-card">
+                <h3 style="font-size: 2rem; margin-bottom: 25px; text-align: center;">🎯 90-DAY SUCCESS MILESTONES</h3>
+                <div style="font-size: 1.3rem; line-height: 2; text-align: center;">
+                    <p><strong>Week 1-2:</strong> Master Customer Vibe script + first 10 installations</p>
+                    <p><strong>Month 1:</strong> €15K+ pipeline + proven system</p>
+                    <p><strong>Month 2:</strong> €40K+ recurring + lead reactivation results</p>
+                    <p><strong>Month 3:</strong> €60K+ monthly + scalable business model</p>
+                    <p style="color: #fbbf24; font-size: 1.8rem; font-weight: 800; margin-top: 25px;">
+                        YEAR 1 TARGET: €720K+ ANNUAL REVENUE! 🚀
+                    </p>
+                </div>
+            </div>
+
+            <div class="page-number">Page 9</div>
+        </div>
+
+        <!-- CHAPTER 8: ADVANCED IMPLEMENTATION -->
+        <div class="page section">
+            <h2>Advanced Implementation</h2>
+
+            <div class="strategy-card">
+                <h3 style="font-size: 2.2rem; margin-bottom: 25px; text-align: center;">🎯 MASTERING THE CUSTOMER VIBE APPROACH</h3>
+                <div style="font-size: 1.3rem; line-height: 1.8; text-align: center;">
+                    <p><strong>Voice tone:</strong> Curious and helpful, never salesy</p>
+                    <p><strong>Pacing:</strong> Natural conversation speed, not rushed</p>
+                    <p><strong>Questions:</strong> Genuine interest in their business</p>
+                    <p><strong>Transition:</strong> Smooth reveal builds trust, not deception</p>
+                </div>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 25px; margin: 40px 0;">
+
+                <div style="background: white; margin-bottom: 20px; border-radius: 15px; box-shadow: 0 5px 15px rgba(30,64,175,0.1); border: 1px solid rgba(59,130,246,0.1); overflow: hidden;">
+                    <div style="background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); padding: 25px 30px; font-weight: 700; font-size: 1.2rem; color: #1e40af; border-bottom: 1px solid rgba(59,130,246,0.1);">❓ "How do I handle rejection on the customer vibe opening?"</div>
+                    <div style="padding: 30px; color: #475569; font-size: 1.1rem; line-height: 1.7;">
+                        <p><strong>If they say "We're not interested in sales calls":</strong></p>
+                        <p>"Oh no, I'm not selling anything - I'm actually considering your services and wanted to know about your response time. Are you taking new customers?"</p>
+                        <p><strong>Result:</strong> 90% switch back to helpful mode and answer your question.</p>
+                    </div>
+                </div>
+
+                <div style="background: white; margin-bottom: 20px; border-radius: 15px; box-shadow: 0 5px 15px rgba(30,64,175,0.1); border: 1px solid rgba(59,130,246,0.1); overflow: hidden;">
+                    <div style="background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); padding: 25px 30px; font-weight: 700; font-size: 1.2rem; color: #1e40af; border-bottom: 1px solid rgba(59,130,246,0.1);">🤖 "What if they ask technical questions about the AI?"</div>
+                    <div style="padding: 30px; color: #475569; font-size: 1.1rem; line-height: 1.7;">
+                        <p><strong>Keep it simple:</strong> "It's like having a 24/7 employee who never gets tired, never misses calls, and works for pennies per conversation. The technical stuff happens behind the scenes - you just see more appointments."</p>
+                        <p><strong>Focus on outcomes,</strong> not features. Business owners care about results, not technology.</p>
+                    </div>
+                </div>
+
+                <div style="background: white; margin-bottom: 20px; border-radius: 15px; box-shadow: 0 5px 15px rgba(30,64,175,0.1); border: 1px solid rgba(59,130,246,0.1); overflow: hidden;">
+                    <div style="background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); padding: 25px 30px; font-weight: 700; font-size: 1.2rem; color: #1e40af; border-bottom: 1px solid rgba(59,130,246,0.1);">💰 "How do I justify the cost if they think it's expensive?"</div>
+                    <div style="padding: 30px; color: #475569; font-size: 1.1rem; line-height: 1.7;">
+                        <p><strong>Reframe with ROI:</strong> "One new customer typically covers 2-3 months of AI costs. Our clients usually see 10+ extra appointments per month. Even if only half convert, you're still ahead."</p>
+                        <p><strong>Use comparison:</strong> "It's like hiring a part-time employee for €400/month who works 24/7 and never calls in sick."</p>
+                    </div>
+                </div>
+
+                <div style="background: white; margin-bottom: 20px; border-radius: 15px; box-shadow: 0 5px 15px rgba(30,64,175,0.1); border: 1px solid rgba(59,130,246,0.1); overflow: hidden;">
+                    <div style="background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); padding: 25px 30px; font-weight: 700; font-size: 1.2rem; color: #1e40af; border-bottom: 1px solid rgba(59,130,246,0.1);">⏰ "When do I see results from the AI installation?"</div>
+                    <div style="padding: 30px; color: #475569; font-size: 1.1rem; line-height: 1.7;">
+                        <p><strong>Set expectations:</strong> "Usually within 1-2 weeks you'll see the AI capturing leads and booking appointments. For lead reactivation, results start showing within 2-4 weeks as the AI processes your existing database."</p>
+                        <p><strong>Follow-up schedule:</strong> Weekly check-ins for the first month to optimize and show progress.</p>
+                    </div>
+                </div>
+
+                <div style="background: white; margin-bottom: 20px; border-radius: 15px; box-shadow: 0 5px 15px rgba(30,64,175,0.1); border: 1px solid rgba(59,130,246,0.1); overflow: hidden;">
+                    <div style="background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); padding: 25px 30px; font-weight: 700; font-size: 1.2rem; color: #1e40af; border-bottom: 1px solid rgba(59,130,246,0.1);">🏆 "How do I ask for referrals after successful implementation?"</div>
+                    <div style="padding: 30px; color: #475569; font-size: 1.1rem; line-height: 1.7;">
+                        <p><strong>After proven results:</strong> "I see you've had 15 extra appointments this month from the AI. Do you know any other business owners who might be losing opportunities like you were? I'd love to help them too."</p>
+                        <p><strong>Incentive offer:</strong> "For every referral that installs our AI, we'll give you a month of free usage credits."</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="highlight-card">
+                <h3 style="font-size: 2rem; margin-bottom: 25px; text-align: center;">🎯 ADVANCED SUCCESS STRATEGIES</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; font-size: 1.2rem; line-height: 1.8;">
+                    <div>
+                        <h4 style="color: #fbbf24; margin-bottom: 15px;">🔄 Follow-up Sequence</h4>
+                        <p>Day 1: Installation<br>
+                        Week 1: Results check<br>
+                        Month 1: Optimization<br>
+                        Month 3: Expansion opportunity</p>
+                    </div>
+                    <div>
+                        <h4 style="color: #fbbf24; margin-bottom: 15px;">📈 Upsell Timing</h4>
+                        <p>After 10+ new appointments<br>
+                        Voice AI for sales calls<br>
+                        Multi-location expansion<br>
+                        Advanced analytics package</p>
+                    </div>
+                    <div>
+                        <h4 style="color: #fbbf24; margin-bottom: 15px;">🎁 Value-Add Services</h4>
+                        <p>Free optimization sessions<br>
+                        Industry benchmarking<br>
+                        Competitor analysis<br>
+                        ROI reporting</p>
+                    </div>
+                    <div>
+                        <h4 style="color: #fbbf24; margin-bottom: 15px;">🏅 Retention Tactics</h4>
+                        <p>Monthly success calls<br>
+                        Proactive optimization<br>
+                        New feature early access<br>
+                        Success story recognition</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page-number">Page 10</div>
+        </div>
+
+        <!-- FINAL CTA PAGE -->
+        <div class="page" style="background: linear-gradient(135deg, #1e40af 0%, #3b82f6 50%, #60a5fa 100%); color: white; padding: 100px 50px; text-align: center; position: relative; overflow: hidden; min-height: 100vh; display: flex; flex-direction: column; justify-content: center;">
+            <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(circle at 30% 40%, rgba(255,255,255,0.1) 0%, transparent 50%), radial-gradient(circle at 70% 80%, rgba(255,255,255,0.05) 0%, transparent 50%);"></div>
+
+            <h2 style="color: white; font-size: 3.5rem; margin-bottom: 30px; position: relative; z-index: 2;">READY TO IMPLEMENT?</h2>
+            <p style="font-size: 1.8rem; margin-bottom: 50px; position: relative; z-index: 2;">
+                You now have the complete Customer Vibe strategy...<br>
+                <strong>Time to put it into action and see the results!</strong>
+            </p>
+
+            <div style="background: rgba(255,255,255,0.1); padding: 30px; border-radius: 20px; margin: 50px auto; position: relative; z-index: 2; backdrop-filter: blur(10px); max-width: 600px;">
+                <h4 style="font-size: 1.4rem; margin-bottom: 20px;">🚀 YOUR NEXT STEPS</h4>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; font-size: 1.1rem; line-height: 1.8;">
+                    <div>✅ Practice the 4-step script</div>
+                    <div>✅ Prepare your prospect list</div>
+                    <div>✅ Start with 20 calls today</div>
+                    <div>✅ Track your results</div>
+                </div>
+            </div>
+
+            <div style="position: relative; z-index: 2; margin-top: 50px;">
+                <h3 style="font-size: 2rem; margin-bottom: 20px;">The Customer Vibe Revolution</h3>
+                <p style="font-size: 1.3rem; opacity: 0.95;">
+                    💰 <strong>90% conversion rate to free installation</strong><br>
+                    🎯 <strong>€60K+ monthly recurring revenue potential</strong><br>
+                    🚀 <strong>Zero resistance, maximum results</strong>
+                </p>
+            </div>
+
+            <div style="position: relative; z-index: 2; margin-top: 50px;">
+                <p style="font-size: 1.2rem; opacity: 0.9;">
+                    🌐 fyxedbv.nl | 📍 Arnhem, Netherlands
+                </p>
+                <p style="font-size: 1rem; opacity: 0.8; margin-top: 20px;">
+                    © 2025 Fyxed B.V. - Customer Vibe Sales Playbook - Updated Edition
+                </p>
+            </div>
+
+            <div class="page-number" style="color: rgba(255,255,255,0.8);">Page 11</div>
+        </div>
+    </div>
+</body>
+</html>

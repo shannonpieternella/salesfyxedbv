@@ -71,6 +71,9 @@ app.use('/api/teams', teamRoutes);
 app.use('/api/payouts', payoutRoutes);
 app.use('/api/admin', adminRoutes);
 
+// Serve training materials
+app.use('/training', express.static('frontend/public/training'));
+
 app.get('/api/health', (req, res) => {
   res.json({
     status: 'OK',

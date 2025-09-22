@@ -640,6 +640,18 @@ const ModernDashboard = () => {
                 Team Overview
               </a>
             )}
+
+            <a href="/training/sales-playbook.html" target="_blank" className="cyber-btn secondary" style={{
+              padding: '16px',
+              textDecoration: 'none',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '12px',
+              justifyContent: 'center'
+            }}>
+              <span style={{ fontSize: '20px' }}>📚</span>
+              Sales Playbook
+            </a>
           </div>
         </div>
       </div>

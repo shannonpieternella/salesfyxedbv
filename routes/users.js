@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
-const { authenticateToken, requireRole, requireOwnerOrSelf } = require('../middleware/auth');
+const { authenticateToken, requireRole, requireOwnerOrSelf, requireTeamAccess } = require('../middleware/auth');
 const { validateObjectId } = require('../middleware/validation');
 
 // Create new user (Admin only)
@@ -107,7 +107,42 @@ router.get('/:id', authenticateToken, requireOwnerOrSelf, validateObjectId, asyn
   }
 });
 
-router.patch('/:id', authenticateToken, requireRole('owner'), validateObjectId, async (req, res) => {
+// Custom middleware for user update permissions
+const requireUserUpdatePermission = async (req, res, next) => {
+  if (!req.user) {
+    return res.status(401).json({ error: 'Authenticatie vereist' });
+  }
+
+  // Owners can update anyone
+  if (req.user.role === 'owner') {
+    return next();
+  }
+
+  // Leaders can update agents in their team
+  if (req.user.role === 'leader') {
+    try {
+      const targetUser = await User.findById(req.params.id);
+      if (!targetUser) {
+        return res.status(404).json({ error: 'Gebruiker niet gevonden' });
+      }
+
+      // Leaders can only update agents, not other leaders or owners
+      if (targetUser.role === 'agent' &&
+          targetUser.sponsorId &&
+          targetUser.sponsorId.toString() === req.user._id.toString()) {
+        return next();
+      }
+    } catch (error) {
+      return res.status(500).json({ error: 'Server fout' });
+    }
+  }
+
+  return res.status(403).json({
+    error: 'Je kunt alleen je eigen team leden bewerken'
+  });
+};
+
+router.patch('/:id', authenticateToken, requireUserUpdatePermission, validateObjectId, async (req, res) => {
   try {
     const { role, sponsorId, active, name, email, phone, canCreateTeams } = req.body;
 

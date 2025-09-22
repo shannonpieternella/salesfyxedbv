@@ -385,10 +385,10 @@ const UserManagement = () => {
                         {userItem.sponsorId ? (
                           <>
                             <div style={{ color: 'var(--cyber-text)' }}>
-                              {users.find(u => u._id === userItem.sponsorId)?.name || 'Unknown'}
+                              {userItem.sponsorId.name || 'Unknown'}
                             </div>
                             <div style={{ color: 'var(--cyber-text-muted)' }}>
-                              {users.find(u => u._id === userItem.sponsorId)?.email}
+                              {userItem.sponsorId.email}
                             </div>
                           </>
                         ) : (

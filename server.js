@@ -9,7 +9,8 @@ const app = express();
 
 app.use(helmet());
 
-app.set('trust proxy', true);
+// Trust proxy - set to 1 for nginx reverse proxy
+app.set('trust proxy', 1);
 
 const corsOptions = {
   origin: process.env.NODE_ENV === 'production'

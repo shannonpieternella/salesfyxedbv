@@ -109,7 +109,7 @@ const Invoices = () => {
     e.preventDefault();
 
     if (newInvoice.items.length === 0 || !newInvoice.items[0].description) {
-      alert('Voeg minimaal één item toe aan de factuur');
+      alert('Add at least one line item to the invoice');
       return;
     }
 
@@ -120,10 +120,10 @@ const Invoices = () => {
         setInvoices(prev => [response.data.invoice, ...prev]);
         setShowModal(false);
         resetForm();
-        alert('Factuur succesvol aangemaakt!');
+        alert('Invoice created successfully!');
       }
     } catch (error) {
-      alert(error.response?.data?.error || 'Fout bij aanmaken factuur');
+      alert(error.response?.data?.error || 'Error creating invoice');
     }
   };
 
@@ -133,9 +133,9 @@ const Invoices = () => {
       setInvoices(prev => prev.map(invoice =>
         invoice._id === invoiceId ? { ...invoice, status: newStatus } : invoice
       ));
-      alert('Status succesvol bijgewerkt!');
+      alert('Status updated successfully!');
     } catch (error) {
-      alert(error.response?.data?.error || 'Fout bij bijwerken status');
+      alert(error.response?.data?.error || 'Error updating status');
     }
   };
 
@@ -153,9 +153,9 @@ const Invoices = () => {
           dates: { ...invoice.dates, paidDate: new Date() }
         } : invoice
       ));
-      alert('Factuur gemarkeerd als betaald!');
+      alert('Invoice marked as paid!');
     } catch (error) {
-      alert(error.response?.data?.error || 'Fout bij markeren als betaald');
+      alert(error.response?.data?.error || 'Error marking as paid');
     }
   };
 

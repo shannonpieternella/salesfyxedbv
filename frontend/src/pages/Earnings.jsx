@@ -82,7 +82,7 @@ const Earnings = () => {
         });
 
         monthlyData.push({
-          month: date.toLocaleDateString('nl-NL', { month: 'short' }),
+          month: date.toLocaleDateString('en-US', { month: 'short' }),
           earnings: monthSales.reduce((sum, sale) => sum + (sale.computed?.sellerShare || 0), 0),
           sales: monthSales.length
         });
@@ -183,7 +183,7 @@ const Earnings = () => {
                   >
                     {Array.from({ length: 12 }, (_, i) => (
                       <option key={i + 1} value={i + 1}>
-                        {new Date(2024, i).toLocaleDateString('nl-NL', { month: 'long' })}
+                        {new Date(2024, i).toLocaleDateString('en-US', { month: 'long' })}
                       </option>
                     ))}
                   </select>
@@ -582,7 +582,7 @@ const Earnings = () => {
                           {formatDate(transaction.createdAt)}
                         </div>
                         <div style={{ fontSize: '11px', color: 'var(--cyber-text-muted)' }}>
-                          {new Date(transaction.createdAt).toLocaleTimeString('nl-NL', {
+                          {new Date(transaction.createdAt).toLocaleTimeString('en-US', {
                             hour: '2-digit',
                             minute: '2-digit'
                           })}

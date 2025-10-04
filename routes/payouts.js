@@ -73,7 +73,7 @@ router.post('/generate', authenticateToken, requireRole('owner'), validatePeriod
     });
   } catch (error) {
     console.error('Generate payouts fout:', error);
-    res.status(500).json({ error: 'Server fout bij genereren payouts' });
+    res.status(500).json({ error: 'Server error generating payouts' });
   }
 });
 
@@ -141,7 +141,7 @@ router.get('/', authenticateToken, validatePeriod, async (req, res) => {
     });
   } catch (error) {
     console.error('Get payouts fout:', error);
-    res.status(500).json({ error: 'Server fout bij ophalen payouts' });
+    res.status(500).json({ error: 'Server error fetching payouts' });
   }
 });
 
@@ -151,11 +151,11 @@ router.get('/:id', authenticateToken, validateObjectId, async (req, res) => {
       .populate('userId', 'name email role');
 
     if (!payout) {
-      return res.status(404).json({ error: 'Payout niet gevonden' });
+      return res.status(404).json({ error: 'Payout not found' });
     }
 
     if (req.user.role === 'agent' && payout.userId._id.toString() !== req.user._id.toString()) {
-      return res.status(403).json({ error: 'Toegang geweigerd' });
+      return res.status(403).json({ error: 'Access denied' });
     }
 
     if (req.user.role === 'leader') {
@@ -163,14 +163,14 @@ router.get('/:id', authenticateToken, validateObjectId, async (req, res) => {
       const hasAccess = payout.userId._id.toString() === req.user._id.toString() ||
                        (targetUser.sponsorId && targetUser.sponsorId.toString() === req.user._id.toString());
       if (!hasAccess) {
-        return res.status(403).json({ error: 'Toegang geweigerd' });
+        return res.status(403).json({ error: 'Access denied' });
       }
     }
 
     res.json({ payout: payout });
   } catch (error) {
     console.error('Get payout fout:', error);
-    res.status(500).json({ error: 'Server fout bij ophalen payout' });
+    res.status(500).json({ error: 'Server error fetching payout' });
   }
 });
 
@@ -180,11 +180,11 @@ router.patch('/:id/mark-paid', authenticateToken, requireRole('owner'), validate
 
     const payout = await Payout.findById(req.params.id);
     if (!payout) {
-      return res.status(404).json({ error: 'Payout niet gevonden' });
+      return res.status(404).json({ error: 'Payout not found' });
     }
 
     if (payout.status === 'paid') {
-      return res.status(400).json({ error: 'Payout is al als betaald gemarkeerd' });
+      return res.status(400).json({ error: 'Payout already marked as paid' });
     }
 
     payout.status = 'paid';
@@ -202,7 +202,7 @@ router.patch('/:id/mark-paid', authenticateToken, requireRole('owner'), validate
     });
   } catch (error) {
     console.error('Mark payout paid fout:', error);
-    res.status(500).json({ error: 'Server fout bij markeren payout als betaald' });
+    res.status(500).json({ error: 'Server error marking payout as paid' });
   }
 });
 
@@ -211,12 +211,12 @@ router.patch('/:id/status', authenticateToken, requireRole('owner'), validateObj
     const { status, notes } = req.body;
 
     if (!['pending', 'processing', 'paid', 'failed'].includes(status)) {
-      return res.status(400).json({ error: 'Ongeldige payout status' });
+      return res.status(400).json({ error: 'Invalid payout status' });
     }
 
     const payout = await Payout.findById(req.params.id);
     if (!payout) {
-      return res.status(404).json({ error: 'Payout niet gevonden' });
+      return res.status(404).json({ error: 'Payout not found' });
     }
 
     payout.status = status;
@@ -233,7 +233,7 @@ router.patch('/:id/status', authenticateToken, requireRole('owner'), validateObj
     });
   } catch (error) {
     console.error('Update payout status fout:', error);
-    res.status(500).json({ error: 'Server fout bij bijwerken payout status' });
+    res.status(500).json({ error: 'Server error updating payout status' });
   }
 });
 
@@ -243,7 +243,7 @@ router.get('/export/:period', authenticateToken, requireRole('owner'), async (re
     const [year, month] = period.split('-').map(Number);
 
     if (!year || !month || month < 1 || month > 12) {
-      return res.status(400).json({ error: 'Ongeldige periode formaat (gebruik YYYY-MM)' });
+      return res.status(400).json({ error: 'Invalid period format (use YYYY-MM)' });
     }
 
     const payouts = await Payout.find({
@@ -252,7 +252,7 @@ router.get('/export/:period', authenticateToken, requireRole('owner'), async (re
     }).populate('userId', 'name email role');
 
     if (payouts.length === 0) {
-      return res.status(404).json({ error: 'Geen payouts gevonden voor deze periode' });
+      return res.status(404).json({ error: 'No payouts found for this period' });
     }
 
     const csvHeader = 'Naam,Email,Rol,Eigen Sales,Overrides,Totaal,Status,Betaalreferentie\n';
@@ -276,7 +276,7 @@ router.get('/export/:period', authenticateToken, requireRole('owner'), async (re
     res.send(csvContent);
   } catch (error) {
     console.error('Export payouts fout:', error);
-    res.status(500).json({ error: 'Server fout bij exporteren payouts' });
+    res.status(500).json({ error: 'Server error exporting payouts' });
   }
 });
 
@@ -284,11 +284,11 @@ router.delete('/:id', authenticateToken, requireRole('owner'), validateObjectId,
   try {
     const payout = await Payout.findById(req.params.id);
     if (!payout) {
-      return res.status(404).json({ error: 'Payout niet gevonden' });
+      return res.status(404).json({ error: 'Payout not found' });
     }
 
     if (payout.status === 'paid') {
-      return res.status(400).json({ error: 'Betaalde payouts kunnen niet worden verwijderd' });
+      return res.status(400).json({ error: 'Paid payouts cannot be deleted' });
     }
 
     await Payout.findByIdAndDelete(req.params.id);
@@ -296,7 +296,7 @@ router.delete('/:id', authenticateToken, requireRole('owner'), validateObjectId,
     res.json({ message: 'Payout succesvol verwijderd' });
   } catch (error) {
     console.error('Delete payout fout:', error);
-    res.status(500).json({ error: 'Server fout bij verwijderen payout' });
+    res.status(500).json({ error: 'Server error deleting payout' });
   }
 });
 

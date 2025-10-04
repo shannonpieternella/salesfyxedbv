@@ -3,17 +3,11 @@ import { AuthProvider, useAuth } from './hooks/useAuth.jsx';
 import ProtectedRoute from './components/ProtectedRoute';
 import Navbar from './components/Navbar';
 import Login from './pages/Login';
-import Dashboard from './components/Dashboard';
-import ModernDashboard from './components/ModernDashboard';
-import Sales from './pages/Sales.jsx';
-import Team from './pages/Team.jsx';
-import MyTeam from './pages/MyTeam.jsx';
-import Earnings from './pages/Earnings.jsx';
-import Invoices from './pages/Invoices.jsx';
-import Admin from './pages/Admin.jsx';
-import Payouts from './pages/Payouts.jsx';
-import UserManagement from './pages/UserManagement.jsx';
-import Hierarchy from './pages/Hierarchy.jsx';
+import Dashboard from './pages/Dashboard';
+import Companies from './pages/Companies';
+import CompanyDetail from './pages/CompanyDetail';
+import Playbook from './pages/Playbook';
+import AnalyticsSteps from './pages/AnalyticsSteps';
 import './styles/globals.css';
 import './styles/futuristic.css';
 
@@ -33,61 +27,31 @@ const AppContent = () => {
 
           <Route path="/dashboard" element={
             <ProtectedRoute>
-              <ModernDashboard />
+              <Dashboard />
             </ProtectedRoute>
           } />
 
-          <Route path="/sales" element={
+          <Route path="/companies" element={
             <ProtectedRoute>
-              <Sales />
+              <Companies />
             </ProtectedRoute>
           } />
 
-          <Route path="/earnings" element={
+          <Route path="/companies/:id" element={
             <ProtectedRoute>
-              <Earnings />
+              <CompanyDetail />
             </ProtectedRoute>
           } />
 
-          <Route path="/invoices" element={
+          <Route path="/playbook" element={
             <ProtectedRoute>
-              <Invoices />
+              <Playbook />
             </ProtectedRoute>
           } />
 
-          <Route path="/team" element={
+          <Route path="/analytics" element={
             <ProtectedRoute>
-              <MyTeam />
-            </ProtectedRoute>
-          } />
-
-          <Route path="/team-old" element={
-            <ProtectedRoute requiredRoles={['leader', 'owner']}>
-              <Team />
-            </ProtectedRoute>
-          } />
-
-          <Route path="/payouts" element={
-            <ProtectedRoute requiredRoles={['owner']}>
-              <Payouts />
-            </ProtectedRoute>
-          } />
-
-          <Route path="/users" element={
-            <ProtectedRoute requiredRoles={['owner', 'leader']}>
-              <UserManagement />
-            </ProtectedRoute>
-          } />
-
-          <Route path="/hierarchy" element={
-            <ProtectedRoute requiredRoles={['owner', 'leader']}>
-              <Hierarchy />
-            </ProtectedRoute>
-          } />
-
-          <Route path="/admin" element={
-            <ProtectedRoute requiredRoles={['owner']}>
-              <Admin />
+              <AnalyticsSteps />
             </ProtectedRoute>
           } />
 
@@ -98,7 +62,7 @@ const AppContent = () => {
                 <div className="card text-center">
                   <h2>404 - Pagina niet gevonden</h2>
                   <p>De pagina die je zoekt bestaat niet.</p>
-                  <a href="/dashboard" className="btn btn-primary">Terug naar Dashboard</a>
+                  <a href="/dashboard" className="btn btn-primary">Back to Dashboard</a>
                 </div>
               </div>
             </div>

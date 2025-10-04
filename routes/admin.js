@@ -18,7 +18,7 @@ router.get('/settings', authenticateToken, requireRole('owner'), async (req, res
     res.json({ settings: settings });
   } catch (error) {
     console.error('Get settings fout:', error);
-    res.status(500).json({ error: 'Server fout bij ophalen instellingen' });
+    res.status(500).json({ error: 'Server error fetching settings' });
   }
 });
 
@@ -30,7 +30,7 @@ router.put('/settings', authenticateToken, requireRole('owner'), async (req, res
       const { seller, leader, sponsor, fyxedMin } = updateData.shares;
       if (seller < 0 || seller > 1 || leader < 0 || leader > 1 ||
           sponsor < 0 || sponsor > 1 || fyxedMin < 0 || fyxedMin > 1) {
-        return res.status(400).json({ error: 'Percentages moeten tussen 0 en 1 zijn' });
+        return res.status(400).json({ error: 'Percentages must be between 0 and 1' });
       }
 
       if (seller + leader + sponsor > 1) {
@@ -56,7 +56,7 @@ router.put('/settings', authenticateToken, requireRole('owner'), async (req, res
     });
   } catch (error) {
     console.error('Update settings fout:', error);
-    res.status(500).json({ error: 'Server fout bij bijwerken instellingen' });
+    res.status(500).json({ error: 'Server error updating settings' });
   }
 });
 
@@ -113,7 +113,7 @@ router.post('/recompute-sales', authenticateToken, requireRole('owner'), async (
     });
   } catch (error) {
     console.error('Recompute sales fout:', error);
-    res.status(500).json({ error: 'Server fout bij herberekenen sales' });
+    res.status(500).json({ error: 'Server error recalculating sales' });
   }
 });
 
@@ -216,7 +216,7 @@ router.get('/dashboard-stats', authenticateToken, requireRole('owner'), async (r
     });
   } catch (error) {
     console.error('Get dashboard stats fout:', error);
-    res.status(500).json({ error: 'Server fout bij ophalen dashboard statistieken' });
+    res.status(500).json({ error: 'Server error fetching dashboard stats' });
   }
 });
 
@@ -244,7 +244,7 @@ router.get('/audit-log', authenticateToken, requireRole('owner'), async (req, re
     });
   } catch (error) {
     console.error('Get audit log fout:', error);
-    res.status(500).json({ error: 'Server fout bij ophalen audit log' });
+    res.status(500).json({ error: 'Server error fetching audit log' });
   }
 });
 
@@ -307,7 +307,7 @@ router.get('/system-health', authenticateToken, requireRole('owner'), async (req
     });
   } catch (error) {
     console.error('Get system health fout:', error);
-    res.status(500).json({ error: 'Server fout bij ophalen systeem status' });
+    res.status(500).json({ error: 'Server error fetching system status' });
   }
 });
 

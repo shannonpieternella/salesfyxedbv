@@ -114,7 +114,7 @@ const Dashboard = () => {
   const quickActions = [
     {
       icon: '💰',
-      title: 'Nieuwe Sale',
+      title: 'New Sale',
       href: '/sales/new',
       description: 'Registreer een nieuwe sale'
     },
@@ -142,7 +142,7 @@ const Dashboard = () => {
     return (
       <div className="loading">
         <div className="spinner"></div>
-        <p>Dashboard laden...</p>
+      <p>Loading dashboard...</p>
       </div>
     );
   }
@@ -176,7 +176,7 @@ const Dashboard = () => {
           </div>
           <div className="stat-value">{formatCurrency(stats.monthEarnings)}</div>
           <div className="stat-change positive">
-            +{Math.round((stats.monthEarnings / 1000) * 10) / 10}K dit maand
+            +{Math.round((stats.monthEarnings / 1000) * 10) / 10}K this month
           </div>
         </div>
 
@@ -243,7 +243,7 @@ const Dashboard = () => {
                   <th>Klant</th>
                   <th>Bedrag</th>
                   <th>Commissie</th>
-                  <th>Datum</th>
+                  <th>Date</th>
                   <th>Status</th>
                 </tr>
               </thead>
@@ -251,7 +251,7 @@ const Dashboard = () => {
                 {recentSales.map(sale => (
                   <tr key={sale._id}>
                     <td>
-                      <strong>{sale.customer?.name || 'Onbekend'}</strong>
+                      <strong>{sale.customer?.name || 'Unknown'}</strong>
                       {sale.customer?.company && (
                         <div style={{ fontSize: '12px', color: '#666' }}>
                           {sale.customer.company}

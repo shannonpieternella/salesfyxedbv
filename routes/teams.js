@@ -21,7 +21,7 @@ router.get('/', authenticateToken, async (req, res) => {
     res.json({ teams: teams });
   } catch (error) {
     console.error('Get teams fout:', error);
-    res.status(500).json({ error: 'Server fout bij ophalen teams' });
+    res.status(500).json({ error: 'Server error fetching teams' });
   }
 });
 
@@ -30,24 +30,24 @@ router.post('/', authenticateToken, requireRole(['owner', 'leader']), validateTe
     const { name, leaderId, memberIds, description } = req.body;
 
     if (req.user.role === 'leader' && leaderId !== req.user._id.toString()) {
-      return res.status(403).json({ error: 'Je kunt alleen teams aanmaken waar je zelf leider van bent' });
+      return res.status(403).json({ error: 'You can only create teams where you are the leader' });
     }
 
     const leader = await User.findById(leaderId);
     if (!leader || !leader.active) {
-      return res.status(400).json({ error: 'Teamleider niet gevonden of inactief' });
+      return res.status(400).json({ error: 'Team leader not found or inactive' });
     }
 
     if (memberIds && memberIds.length > 0) {
       const members = await User.find({ _id: { $in: memberIds }, active: true });
       if (members.length !== memberIds.length) {
-        return res.status(400).json({ error: 'Een of meer teamleden niet gevonden of inactief' });
+        return res.status(400).json({ error: 'One or more team members not found or inactive' });
       }
     }
 
     const existingTeam = await Team.findOne({ name: name, active: true });
     if (existingTeam) {
-      return res.status(400).json({ error: 'Teamnaam al in gebruik' });
+      return res.status(400).json({ error: 'Team name already in use' });
     }
 
     const team = new Team({
@@ -69,7 +69,7 @@ router.post('/', authenticateToken, requireRole(['owner', 'leader']), validateTe
     });
   } catch (error) {
     console.error('Create team fout:', error);
-    res.status(500).json({ error: 'Server fout bij aanmaken team' });
+    res.status(500).json({ error: 'Server error creating team' });
   }
 });
 
@@ -80,11 +80,11 @@ router.get('/:id', authenticateToken, validateObjectId, async (req, res) => {
       .populate('memberIds', 'name email role active sponsorId');
 
     if (!team) {
-      return res.status(404).json({ error: 'Team niet gevonden' });
+      return res.status(404).json({ error: 'Team not found' });
     }
 
     if (req.user.role === 'leader' && team.leaderId._id.toString() !== req.user._id.toString()) {
-      return res.status(403).json({ error: 'Toegang geweigerd' });
+      return res.status(403).json({ error: 'Access denied' });
     }
 
     const Sale = require('../models/Sale');
@@ -120,7 +120,7 @@ router.get('/:id', authenticateToken, validateObjectId, async (req, res) => {
     });
   } catch (error) {
     console.error('Get team fout:', error);
-    res.status(500).json({ error: 'Server fout bij ophalen team' });
+    res.status(500).json({ error: 'Server error fetching team' });
   }
 });
 
@@ -130,15 +130,15 @@ router.patch('/:id', authenticateToken, validateObjectId, async (req, res) => {
 
     const team = await Team.findById(req.params.id);
     if (!team) {
-      return res.status(404).json({ error: 'Team niet gevonden' });
+      return res.status(404).json({ error: 'Team not found' });
     }
 
     if (req.user.role === 'leader' && team.leaderId.toString() !== req.user._id.toString()) {
-      return res.status(403).json({ error: 'Je kunt alleen je eigen teams bewerken' });
+      return res.status(403).json({ error: 'You can only edit your own teams' });
     }
 
     if (req.user.role !== 'owner' && req.user.role !== 'leader') {
-      return res.status(403).json({ error: 'Alleen eigenaar en teamleiders kunnen teams bewerken' });
+      return res.status(403).json({ error: 'Only owner and team leaders can edit teams' });
     }
 
     if (name && name !== team.name) {
@@ -148,14 +148,14 @@ router.patch('/:id', authenticateToken, validateObjectId, async (req, res) => {
         _id: { $ne: team._id }
       });
       if (existingTeam) {
-        return res.status(400).json({ error: 'Teamnaam al in gebruik' });
+        return res.status(400).json({ error: 'Team name already in use' });
       }
     }
 
     if (memberIds && memberIds.length > 0) {
       const members = await User.find({ _id: { $in: memberIds }, active: true });
       if (members.length !== memberIds.length) {
-        return res.status(400).json({ error: 'Een of meer teamleden niet gevonden of inactief' });
+        return res.status(400).json({ error: 'One or more team members not found or inactive' });
       }
     }
 
@@ -178,7 +178,7 @@ router.patch('/:id', authenticateToken, validateObjectId, async (req, res) => {
     });
   } catch (error) {
     console.error('Update team fout:', error);
-    res.status(500).json({ error: 'Server fout bij bijwerken team' });
+    res.status(500).json({ error: 'Server error updating team' });
   }
 });
 
@@ -187,29 +187,29 @@ router.patch('/:id/add-member', authenticateToken, validateObjectId, async (req,
     const { userId } = req.body;
 
     if (!userId) {
-      return res.status(400).json({ error: 'Gebruiker ID vereist' });
+      return res.status(400).json({ error: 'User ID required' });
     }
 
     const team = await Team.findById(req.params.id);
     if (!team) {
-      return res.status(404).json({ error: 'Team niet gevonden' });
+      return res.status(404).json({ error: 'Team not found' });
     }
 
     if (req.user.role === 'leader' && team.leaderId.toString() !== req.user._id.toString()) {
-      return res.status(403).json({ error: 'Je kunt alleen leden toevoegen aan je eigen teams' });
+      return res.status(403).json({ error: 'You can only add members to your own teams' });
     }
 
     if (req.user.role !== 'owner' && req.user.role !== 'leader') {
-      return res.status(403).json({ error: 'Alleen eigenaar en teamleiders kunnen leden toevoegen' });
+      return res.status(403).json({ error: 'Only owner and team leaders can add members' });
     }
 
     const user = await User.findById(userId);
     if (!user || !user.active) {
-      return res.status(400).json({ error: 'Gebruiker niet gevonden of inactief' });
+      return res.status(400).json({ error: 'User not found or inactive' });
     }
 
     if (team.memberIds.includes(userId)) {
-      return res.status(400).json({ error: 'Gebruiker is al lid van dit team' });
+      return res.status(400).json({ error: 'User is already a member of this team' });
     }
 
     team.memberIds.push(userId);
@@ -225,7 +225,7 @@ router.patch('/:id/add-member', authenticateToken, validateObjectId, async (req,
     });
   } catch (error) {
     console.error('Add team member fout:', error);
-    res.status(500).json({ error: 'Server fout bij toevoegen teamlid' });
+    res.status(500).json({ error: 'Server error adding team member' });
   }
 });
 
@@ -234,24 +234,24 @@ router.patch('/:id/remove-member', authenticateToken, validateObjectId, async (r
     const { userId } = req.body;
 
     if (!userId) {
-      return res.status(400).json({ error: 'Gebruiker ID vereist' });
+      return res.status(400).json({ error: 'User ID required' });
     }
 
     const team = await Team.findById(req.params.id);
     if (!team) {
-      return res.status(404).json({ error: 'Team niet gevonden' });
+      return res.status(404).json({ error: 'Team not found' });
     }
 
     if (req.user.role === 'leader' && team.leaderId.toString() !== req.user._id.toString()) {
-      return res.status(403).json({ error: 'Je kunt alleen leden verwijderen uit je eigen teams' });
+      return res.status(403).json({ error: 'You can only remove members from your own teams' });
     }
 
     if (req.user.role !== 'owner' && req.user.role !== 'leader') {
-      return res.status(403).json({ error: 'Alleen eigenaar en teamleiders kunnen leden verwijderen' });
+      return res.status(403).json({ error: 'Only owner and team leaders can remove members' });
     }
 
     if (!team.memberIds.includes(userId)) {
-      return res.status(400).json({ error: 'Gebruiker is geen lid van dit team' });
+      return res.status(400).json({ error: 'User is not a member of this team' });
     }
 
     team.memberIds = team.memberIds.filter(id => id.toString() !== userId);
@@ -267,7 +267,7 @@ router.patch('/:id/remove-member', authenticateToken, validateObjectId, async (r
     });
   } catch (error) {
     console.error('Remove team member fout:', error);
-    res.status(500).json({ error: 'Server fout bij verwijderen teamlid' });
+    res.status(500).json({ error: 'Server error removing team member' });
   }
 });
 
@@ -275,7 +275,7 @@ router.delete('/:id', authenticateToken, requireRole('owner'), validateObjectId,
   try {
     const team = await Team.findById(req.params.id);
     if (!team) {
-      return res.status(404).json({ error: 'Team niet gevonden' });
+      return res.status(404).json({ error: 'Team not found' });
     }
 
     team.active = false;
@@ -284,7 +284,7 @@ router.delete('/:id', authenticateToken, requireRole('owner'), validateObjectId,
     res.json({ message: 'Team succesvol gedeactiveerd' });
   } catch (error) {
     console.error('Delete team fout:', error);
-    res.status(500).json({ error: 'Server fout bij deactiveren team' });
+    res.status(500).json({ error: 'Server error deactivating team' });
   }
 });
 

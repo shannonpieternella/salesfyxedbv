@@ -70,7 +70,7 @@ const Team = () => {
         alert('Team succesvol aangemaakt!');
       }
     } catch (error) {
-      alert(error.response?.data?.error || 'Fout bij aanmaken team');
+      alert(error.response?.data?.error || 'Error creating team');
     }
   };
 
@@ -80,7 +80,7 @@ const Team = () => {
       loadData(); // Refresh data
       alert('Teamlid succesvol toegevoegd!');
     } catch (error) {
-      alert(error.response?.data?.error || 'Fout bij toevoegen teamlid');
+      alert(error.response?.data?.error || 'Error adding team member');
     }
   };
 
@@ -90,7 +90,7 @@ const Team = () => {
       loadData(); // Refresh data
       alert('Teamlid succesvol verwijderd!');
     } catch (error) {
-      alert(error.response?.data?.error || 'Fout bij verwijderen teamlid');
+      alert(error.response?.data?.error || 'Error removing team member');
     }
   };
 

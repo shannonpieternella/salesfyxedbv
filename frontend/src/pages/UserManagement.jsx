@@ -61,10 +61,10 @@ const UserManagement = () => {
 
         // Show success message with default password
         const defaultPassword = response.data.defaultPassword || 'newuser123';
-        alert(`Gebruiker succesvol aangemaakt!\n\nLogin gegevens:\nEmail: ${newUser.email}\nWachtwoord: ${defaultPassword}\n\nDe gebruiker kan dit wachtwoord wijzigen na inloggen.`);
+      alert(`User created successfully!\n\nLogin details:\nEmail: ${newUser.email}\nPassword: ${defaultPassword}\n\nThe user can change this password after logging in.`);
       }
     } catch (error) {
-      alert(error.response?.data?.error || 'Fout bij aanmaken gebruiker');
+      alert(error.response?.data?.error || 'Error creating user');
     }
   };
 
@@ -85,12 +85,12 @@ const UserManagement = () => {
       setShowModal(false);
 
       if (isTransferring) {
-        alert('Gebruiker succesvol overgeplaatst! Alle sales data is behouden.');
+      alert('User moved successfully! All sales data is preserved.');
       } else {
-        alert('Gebruiker succesvol bijgewerkt!');
+      alert('User updated successfully!');
       }
     } catch (error) {
-      alert(error.response?.data?.error || 'Fout bij bijwerken gebruiker');
+      alert(error.response?.data?.error || 'Error updating user');
     }
   };
 
@@ -100,9 +100,9 @@ const UserManagement = () => {
     try {
       await usersAPI.deleteUser(userId);
       setUsers(prev => prev.filter(u => u._id !== userId));
-      alert('Gebruiker succesvol verwijderd!');
+      alert('User deleted successfully!');
     } catch (error) {
-      alert(error.response?.data?.error || 'Fout bij verwijderen gebruiker');
+      alert(error.response?.data?.error || 'Error deleting user');
     }
   };
 
@@ -114,7 +114,7 @@ const UserManagement = () => {
       setShowModal(false);
       alert('Sponsor/Team Leader succesvol toegewezen!');
     } catch (error) {
-      alert(error.response?.data?.error || 'Fout bij toewijzen sponsor');
+      alert(error.response?.data?.error || 'Error assigning sponsor');
     }
   };
 

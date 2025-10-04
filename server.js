@@ -46,6 +46,11 @@ mongoose.connect(process.env.MONGO_URI, {
 })
 .then(() => {
   console.log('✅ Verbonden met MongoDB');
+
+  // Start call updater to check for completed calls
+  if (process.env.NODE_ENV !== 'test') {
+    callUpdater.start();
+  }
 })
 .catch((error) => {
   console.error('❌ MongoDB verbinding fout:', error);
@@ -61,6 +66,15 @@ const earningsRoutes = require('./routes/earnings');
 const teamRoutes = require('./routes/teams');
 const payoutRoutes = require('./routes/payouts');
 const adminRoutes = require('./routes/admin');
+const voiceAgentRoutes = require('./routes/voiceAgents');
+const voiceCallRoutes = require('./routes/voiceCalls');
+const creditRoutes = require('./routes/credits');
+const adminAgentRoutes = require('./routes/adminAgents');
+const analyticsRoutes = require('./routes/analytics');
+const companyRoutes = require('./routes/companies');
+const playbookRoutes = require('./routes/playbook');
+const analyticsStepsRoutes = require('./routes/analyticsSteps');
+const callUpdater = require('./utils/callUpdater');
 
 // Rate limiting disabled for development
 // app.use('/api/auth', strictLimiter);
@@ -73,6 +87,14 @@ app.use('/api/earnings', earningsRoutes);
 app.use('/api/teams', teamRoutes);
 app.use('/api/payouts', payoutRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/voice-agents', voiceAgentRoutes);
+app.use('/api/voice-calls', voiceCallRoutes);
+app.use('/api/credits', creditRoutes);
+app.use('/api/admin/agents', adminAgentRoutes);
+app.use('/api/analytics', analyticsRoutes);
+app.use('/api/companies', companyRoutes);
+app.use('/api/playbook', playbookRoutes);
+app.use('/api/analytics-steps', analyticsStepsRoutes);
 
 // Serve training materials
 const path = require('path');
@@ -175,6 +197,10 @@ app.listen(PORT, () => {
 
 process.on('SIGTERM', () => {
   console.log('SIGTERM ontvangen, server wordt afgesloten...');
+
+  // Stop call updater
+  callUpdater.stop();
+
   mongoose.connection.close(() => {
     console.log('MongoDB verbinding gesloten');
     process.exit(0);

@@ -190,14 +190,13 @@ body::before {
 
 /* Futuristic Inputs */
 .cyber-input {
-  background: rgba(22, 33, 62, 0.8);
-  border: 2px solid var(--cyber-border);
+  background: white;
+  border: 2px solid #ddd;
   border-radius: 12px;
   padding: 16px 20px;
-  color: var(--cyber-text);
+  color: #333 !important;
   font-size: 16px;
   transition: var(--transition-smooth);
-  backdrop-filter: blur(10px);
 }
 
 .cyber-input:focus {
@@ -210,7 +209,7 @@ body::before {
 }
 
 .cyber-input::placeholder {
-  color: var(--cyber-text-muted);
+  color: #999 !important;
 }
 
 /* Holographic Tables */
@@ -583,6 +582,41 @@ body::before {
     padding: 12px 8px;
     font-size: 12px;
   }
+}
+
+/* Form Styles */
+.form-label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--cyber-text-muted);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 10px 12px;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  color: #333 !important;
+  font-size: 14px;
+  font-family: inherit;
+  transition: var(--transition-smooth);
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--neon-blue);
+  box-shadow: 0 0 10px rgba(0, 212, 255, 0.2);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.form-input::placeholder {
+  color: #999 !important;
+  opacity: 1;
 }
 
 /* Scrollbar Styling */

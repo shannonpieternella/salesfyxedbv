@@ -110,7 +110,7 @@ const EarningsSimulator = () => {
       <div className="simulator-content">
         <div className="simulator-inputs">
           <div className="input-group">
-            <label>🎯 Aantal Klanten: {scenario.clients}</label>
+            <label>🎯 Number of Customers: {scenario.clients}</label>
             <input
               type="range"
               className="range-input"
@@ -147,7 +147,7 @@ const EarningsSimulator = () => {
           </div>
 
           <div className="input-group">
-            <label>🔄 Aantal Retainers: {scenario.retainers}</label>
+            <label>🔄 Number of Retainers: {scenario.retainers}</label>
             <input
               type="range"
               className="range-input"
@@ -198,7 +198,7 @@ const EarningsSimulator = () => {
         </div>
 
         <div className="simulator-results">
-          <h4 style={{ marginBottom: '20px', color: '#374151' }}>📊 Maandelijke Resultaten</h4>
+          <h4 style={{ marginBottom: '20px', color: '#374151' }}>📊 Monthly Results</h4>
 
           <div className="result-item">
             <span className="result-label">🎯 Lead Activatie</span>
@@ -254,10 +254,10 @@ const EarningsSimulator = () => {
           </div>
 
           <div className="result-total">
-            <div className="result-total-label">💰 Totale Omzet per Maand</div>
+            <div className="result-total-label">💰 Total Revenue per Month</div>
             <div className="result-total-value">{formatCurrency(results.totalRevenue)}</div>
             <div style={{ fontSize: '16px', marginTop: '8px', opacity: 0.9 }}>
-              Per jaar: {formatCurrency(results.totalRevenue * 12)}
+              Per year: {formatCurrency(results.totalRevenue * 12)}
             </div>
           </div>
 
@@ -269,7 +269,7 @@ const EarningsSimulator = () => {
             textAlign: 'center'
           }}>
             <div style={{ color: '#38a169', fontWeight: '600', fontSize: '14px' }}>
-              🎯 Jouw maandelijkse verdiensten
+              🎯 Your monthly earnings
             </div>
             <div style={{
               color: '#38a169',
@@ -280,7 +280,7 @@ const EarningsSimulator = () => {
               {formatCurrency(results.shares.agent)}
             </div>
             <div style={{ color: '#38a169', fontSize: '12px', marginTop: '4px' }}>
-              ({formatCurrency(results.shares.agent * 12)} per jaar)
+              ({formatCurrency(results.shares.agent * 12)} per year)
             </div>
           </div>
         </div>

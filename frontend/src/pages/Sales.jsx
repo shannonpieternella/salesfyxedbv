@@ -90,7 +90,7 @@ const Sales = () => {
         alert('Sale succesvol aangemaakt!');
       }
     } catch (error) {
-      alert(error.response?.data?.error || 'Fout bij aanmaken sale');
+      alert(error.response?.data?.error || 'Error creating sale');
     }
   };
 
@@ -100,9 +100,9 @@ const Sales = () => {
       setSales(prev => prev.map(sale =>
         sale._id === saleId ? { ...sale, status: newStatus } : sale
       ));
-      alert('Status succesvol bijgewerkt!');
+      alert('Status updated successfully!');
     } catch (error) {
-      alert(error.response?.data?.error || 'Fout bij bijwerken status');
+      alert(error.response?.data?.error || 'Error updating status');
     }
   };
 
@@ -565,7 +565,7 @@ const Sales = () => {
                           {formatDate(sale.createdAt)}
                         </div>
                         <div style={{ fontSize: '11px', color: 'var(--cyber-text-muted)' }}>
-                          {new Date(sale.createdAt).toLocaleTimeString('nl-NL', {
+                          {new Date(sale.createdAt).toLocaleTimeString('en-US', {
                             hour: '2-digit',
                             minute: '2-digit'
                           })}

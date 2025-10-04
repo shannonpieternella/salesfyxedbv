@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs');
 const userSchema = new mongoose.Schema({
   role: {
     type: String,
-    enum: ['owner', 'leader', 'agent'],
+    enum: ['owner', 'admin', 'leader', 'agent'],
     required: true
   },
   name: {
@@ -43,6 +43,20 @@ const userSchema = new mongoose.Schema({
   stripeCustomerId: {
     type: String,
     default: null
+  },
+  credits: {
+    balance: {
+      type: Number,
+      default: 5.0 // 5 demo credits for new users
+    },
+    totalUsed: {
+      type: Number,
+      default: 0
+    },
+    totalPurchased: {
+      type: Number,
+      default: 0
+    }
   }
 }, {
   timestamps: true

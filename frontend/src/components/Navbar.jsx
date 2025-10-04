@@ -22,36 +22,23 @@ const Navbar = () => {
   }, []);
 
   const navItems = [
-    { path: '/dashboard', label: 'Dashboard', icon: '⚡' },
-    { path: '/sales', label: 'Sales', icon: '🚀' },
-    { path: '/earnings', label: 'Verdiensten', icon: '💎' },
-    { path: '/invoices', label: 'Facturen', icon: '📡' },
+    { path: '/dashboard', label: 'Dashboard', icon: '📊' },
+    { path: '/companies', label: 'Companies', icon: '🏢' },
+    { path: '/playbook', label: 'Playbook', icon: '📖' },
     {
       path: '/training',
       label: 'Training',
       icon: '📚',
       dropdown: true,
       items: [
-        { href: '/training/sales-playbook.html', label: 'Sales Playbook (English)', flag: '🇺🇸' },
-        { href: '/training/sales-playbook-nl.html', label: 'Sales Handboek (Nederlands)', flag: '🇳🇱' }
+        { href: '/training/sales-playbook.html', label: 'Sales Playbook', flag: '📚' }
       ]
     },
   ];
 
-  // Add role-specific nav items
-  if (user?.role === 'leader' || user?.role === 'owner') {
-    navItems.push(
-      { path: '/team', label: 'Team', icon: '🌐' },
-      { path: '/users', label: 'Users', icon: '👥' },
-      { path: '/hierarchy', label: 'Tree', icon: '🌳' }
-    );
-  }
-
-  if (user?.role === 'owner') {
-    navItems.push(
-      { path: '/payouts', label: 'Payouts', icon: '💫' },
-      { path: '/admin', label: 'Control', icon: '🔮' }
-    );
+  // Analytics available to all authenticated users
+  if (user) {
+    navItems.push({ path: '/analytics', label: 'Analytics', icon: '📈' });
   }
 
   const isActive = (path) => {
@@ -114,14 +101,6 @@ const Navbar = () => {
               backgroundClip: 'text'
             }}>
               FYXED
-            </div>
-            <div style={{
-              fontSize: '10px',
-              color: 'var(--cyber-text-muted)',
-              textTransform: 'uppercase',
-              letterSpacing: '1px'
-            }}>
-              SALES MATRIX
             </div>
           </div>
         </Link>

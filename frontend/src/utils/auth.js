@@ -42,7 +42,7 @@ export const logout = () => {
 };
 
 export const formatCurrency = (amount, currency = 'EUR') => {
-  return new Intl.NumberFormat('nl-NL', {
+  return new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: currency,
   }).format(amount);
@@ -61,7 +61,7 @@ export const formatDate = (date, format = 'short') => {
     }
   };
 
-  return new Intl.DateTimeFormat('nl-NL', options[format]).format(new Date(date));
+  return new Intl.DateTimeFormat('en-US', options[format]).format(new Date(date));
 };
 
 export const getStatusBadge = (status) => {
@@ -84,15 +84,15 @@ export const getStatusBadge = (status) => {
 export const getStatusText = (status) => {
   const statusMap = {
     open: 'Open',
-    approved: 'Goedgekeurd',
-    paid: 'Betaald',
-    pending: 'In behandeling',
-    processing: 'Wordt verwerkt',
-    failed: 'Mislukt',
-    sent: 'Verzonden',
-    overdue: 'Achterstallig',
-    cancelled: 'Geannuleerd',
-    draft: 'Concept'
+    approved: 'Approved',
+    paid: 'Paid',
+    pending: 'Pending',
+    processing: 'Processing',
+    failed: 'Failed',
+    sent: 'Sent',
+    overdue: 'Overdue',
+    cancelled: 'Cancelled',
+    draft: 'Draft'
   };
 
   return statusMap[status] || status;
@@ -100,9 +100,11 @@ export const getStatusText = (status) => {
 
 export const getRoleText = (role) => {
   const roleMap = {
-    owner: 'Eigenaar',
-    leader: 'Teamleider',
-    agent: 'Agent'
+    admin: 'Admin',
+    agent: 'Agent',
+    // Legacy support
+    owner: 'Admin',
+    leader: 'Agent'
   };
 
   return roleMap[role] || role;

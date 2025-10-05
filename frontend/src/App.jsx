@@ -8,6 +8,8 @@ import Companies from './pages/Companies';
 import CompanyDetail from './pages/CompanyDetail';
 import Playbook from './pages/Playbook';
 import AnalyticsSteps from './pages/AnalyticsSteps';
+import Users from './pages/Users';
+import Settings from './pages/Settings';
 import './styles/globals.css';
 import './styles/futuristic.css';
 
@@ -52,6 +54,18 @@ const AppContent = () => {
           <Route path="/analytics" element={
             <ProtectedRoute>
               <AnalyticsSteps />
+            </ProtectedRoute>
+          } />
+
+          <Route path="/users" element={
+            <ProtectedRoute>
+              <Users />
+            </ProtectedRoute>
+          } />
+
+          <Route path="/settings" element={
+            <ProtectedRoute>
+              <Settings />
             </ProtectedRoute>
           } />
 

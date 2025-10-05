@@ -41,6 +41,16 @@ const Navbar = () => {
     navItems.push({ path: '/analytics', label: 'Analytics', icon: '📈' });
   }
 
+  // Users management for admin/owner
+  if (user && (user.role === 'owner' || user.role === 'admin')) {
+    navItems.push({ path: '/users', label: 'Users', icon: '👥' });
+  }
+
+  // Settings available to all authenticated users
+  if (user) {
+    navItems.push({ path: '/settings', label: 'Settings', icon: '⚙️' });
+  }
+
   const isActive = (path) => {
     return location.pathname === path || location.pathname.startsWith(path + '/');
   };

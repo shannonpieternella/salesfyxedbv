@@ -77,7 +77,7 @@ router.get('/', authenticateToken, validateDateRange, async (req, res) => {
       query.sellerId = { $in: memberIds };
     }
 
-    if (sellerId && req.user.role === 'owner') {
+    if (sellerId && (req.user.role === 'owner' || req.user.role === 'admin')) {
       query.sellerId = sellerId;
     }
 

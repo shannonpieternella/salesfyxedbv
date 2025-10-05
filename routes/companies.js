@@ -93,10 +93,11 @@ router.get('/', async (req, res) => {
 
     const query = {};
 
-    // Admin can filter by agentId, agent sees only their own
-    if (req.user.role === 'admin' && agentId) {
+    // Only admin and owner can see all companies or filter by agentId
+    // Everyone else sees only their own companies
+    if ((req.user.role === 'admin' || req.user.role === 'owner') && agentId) {
       query.agentId = agentId;
-    } else if (req.user.role === 'agent') {
+    } else if (req.user.role !== 'admin' && req.user.role !== 'owner') {
       query.agentId = req.user._id;
     }
 

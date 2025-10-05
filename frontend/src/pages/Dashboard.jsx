@@ -17,9 +17,17 @@ const Dashboard = () => {
     recentCompanies: []
   });
   const [loading, setLoading] = useState(true);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
   useEffect(() => {
     fetchDashboardData();
+
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   const fetchDashboardData = async () => {
@@ -86,9 +94,9 @@ const Dashboard = () => {
   return (
     <div className="dashboard">
       <div className="dashboard-content">
-        <div style={{ marginBottom: '32px' }}>
+        <div style={{ marginBottom: isMobile ? '24px' : '32px' }}>
           <h1 style={{
-            fontSize: '32px',
+            fontSize: isMobile ? '24px' : '32px',
             fontWeight: '700',
             background: 'var(--accent-gradient)',
             WebkitBackgroundClip: 'text',
@@ -98,7 +106,10 @@ const Dashboard = () => {
           }}>
             Dashboard
           </h1>
-          <p style={{ color: 'var(--cyber-text-muted)', fontSize: '14px' }}>
+          <p style={{
+            color: 'var(--cyber-text-muted)',
+            fontSize: isMobile ? '12px' : '14px'
+          }}>
             Welcome back, {user?.name}! Here's your overview.
           </p>
         </div>
@@ -106,9 +117,9 @@ const Dashboard = () => {
         {/* Phase Cards */}
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-          gap: '16px',
-          marginBottom: '32px'
+          gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(auto-fit, minmax(180px, 1fr))',
+          gap: isMobile ? '12px' : '16px',
+          marginBottom: isMobile ? '24px' : '32px'
         }}>
           {Object.entries(phaseConfig).map(([key, config]) => (
             <div
@@ -156,15 +167,15 @@ const Dashboard = () => {
         {/* Total & Recent Companies */}
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-          gap: '24px'
+          gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(280px, 1fr))',
+          gap: isMobile ? '16px' : '24px'
         }}>
           {/* Total Companies Card */}
           <div className="card">
             <h3 style={{
-              fontSize: '18px',
+              fontSize: isMobile ? '16px' : '18px',
               fontWeight: '600',
-              marginBottom: '16px',
+              marginBottom: isMobile ? '12px' : '16px',
               color: 'var(--cyber-text)'
             }}>
               📊 Total Overview
@@ -172,11 +183,11 @@ const Dashboard = () => {
             <div style={{
               display: 'flex',
               alignItems: 'center',
-              gap: '16px',
-              marginBottom: '24px'
+              gap: isMobile ? '12px' : '16px',
+              marginBottom: isMobile ? '16px' : '24px'
             }}>
               <div style={{
-                fontSize: '48px',
+                fontSize: isMobile ? '36px' : '48px',
                 fontWeight: '700',
                 background: 'var(--accent-gradient)',
                 WebkitBackgroundClip: 'text',
@@ -186,10 +197,17 @@ const Dashboard = () => {
                 {stats.total}
               </div>
               <div>
-                <div style={{ color: 'var(--cyber-text)', fontSize: '16px', fontWeight: '600' }}>
+                <div style={{
+                  color: 'var(--cyber-text)',
+                  fontSize: isMobile ? '14px' : '16px',
+                  fontWeight: '600'
+                }}>
                   Companies
                 </div>
-                <div style={{ color: 'var(--cyber-text-muted)', fontSize: '12px' }}>
+                <div style={{
+                  color: 'var(--cyber-text-muted)',
+                  fontSize: isMobile ? '11px' : '12px'
+                }}>
                   Total
                 </div>
               </div>
@@ -197,18 +215,22 @@ const Dashboard = () => {
             <Link
               to="/companies"
               className="btn btn-primary"
-              style={{ width: '100%' }}
+              style={{
+                width: '100%',
+                fontSize: isMobile ? '13px' : '14px',
+                padding: isMobile ? '10px' : '12px'
+              }}
             >
               View All Companies
             </Link>
           </div>
 
           {/* Recent Companies */}
-          <div className="card" style={{ gridColumn: 'span 2' }}>
+          <div className="card" style={{ gridColumn: isMobile ? '1' : 'span 2' }}>
             <h3 style={{
-              fontSize: '18px',
+              fontSize: isMobile ? '16px' : '18px',
               fontWeight: '600',
-              marginBottom: '16px',
+              marginBottom: isMobile ? '12px' : '16px',
               color: 'var(--cyber-text)'
             }}>
               🕒 Recent Companies
@@ -232,9 +254,11 @@ const Dashboard = () => {
                     to={`/companies/${company._id}`}
                     style={{
                       display: 'flex',
-                      alignItems: 'center',
+                      flexDirection: isMobile ? 'column' : 'row',
+                      alignItems: isMobile ? 'stretch' : 'center',
                       justifyContent: 'space-between',
-                      padding: '12px 16px',
+                      padding: isMobile ? '12px' : '12px 16px',
+                      gap: isMobile ? '12px' : '16px',
                       background: 'rgba(255, 255, 255, 0.03)',
                       border: '1px solid var(--cyber-border)',
                       borderRadius: '8px',
@@ -251,32 +275,67 @@ const Dashboard = () => {
                       e.currentTarget.style.borderColor = 'var(--cyber-border)';
                     }}
                   >
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                      <div style={{ fontSize: '24px' }}>
+                    <div style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '12px',
+                      flex: 1,
+                      minWidth: 0
+                    }}>
+                      <div style={{
+                        fontSize: isMobile ? '20px' : '24px',
+                        flexShrink: 0
+                      }}>
                         {phaseConfig[company.currentPhase]?.icon || '📋'}
                       </div>
-                      <div>
-                        <div style={{ fontWeight: '600', fontSize: '14px' }}>
+                      <div style={{
+                        flex: 1,
+                        minWidth: 0,
+                        overflow: 'hidden'
+                      }}>
+                        <div style={{
+                          fontWeight: '600',
+                          fontSize: isMobile ? '13px' : '14px',
+                          overflow: 'hidden',
+                          textOverflow: 'ellipsis',
+                          whiteSpace: 'nowrap'
+                        }}>
                           {company.name}
                         </div>
-                        <div style={{ fontSize: '12px', color: 'var(--cyber-text-muted)' }}>
+                        <div style={{
+                          fontSize: isMobile ? '11px' : '12px',
+                          color: 'var(--cyber-text-muted)',
+                          overflow: 'hidden',
+                          textOverflow: 'ellipsis',
+                          whiteSpace: 'nowrap'
+                        }}>
                           {company.contactPerson || 'No contact person'}
                         </div>
-                        <div style={{ fontSize: '12px', color: 'var(--cyber-text-muted)', marginTop: '2px' }}>
-                          👤 Agent: {company.agentId?.name || 'Unknown'}{company.agentId?.email ? ` (${company.agentId.email})` : ''}
+                        <div style={{
+                          fontSize: isMobile ? '10px' : '12px',
+                          color: 'var(--cyber-text-muted)',
+                          marginTop: '2px',
+                          overflow: 'hidden',
+                          textOverflow: 'ellipsis',
+                          whiteSpace: isMobile ? 'normal' : 'nowrap'
+                        }}>
+                          👤 Agent: {company.agentId?.name || 'Unknown'}{!isMobile && company.agentId?.email ? ` (${company.agentId.email})` : ''}
                         </div>
                       </div>
                     </div>
                     <div style={{
-                      padding: '4px 12px',
+                      padding: isMobile ? '6px 12px' : '4px 12px',
                       background: `${phaseConfig[company.currentPhase]?.color}20`,
                       border: `1px solid ${phaseConfig[company.currentPhase]?.color}40`,
                       borderRadius: '6px',
-                      fontSize: '11px',
+                      fontSize: isMobile ? '10px' : '11px',
                       fontWeight: '600',
                       color: phaseConfig[company.currentPhase]?.color,
                       textTransform: 'uppercase',
-                      letterSpacing: '0.5px'
+                      letterSpacing: '0.5px',
+                      textAlign: 'center',
+                      whiteSpace: 'nowrap',
+                      alignSelf: isMobile ? 'flex-start' : 'center'
                     }}>
                       {phaseConfig[company.currentPhase]?.label || company.currentPhase}
                     </div>

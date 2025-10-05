@@ -13,8 +13,9 @@ const Analytics = () => {
 
   const fetchAnalytics = async () => {
     try {
-      const endpoint = user?.role === 'owner' ? '/api/analytics/admin' : '/api/analytics/user';
-      const response = await fetch(`${endpoint}?timeframe=${timeframe}`, {
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+      const endpoint = user?.role === 'owner' || user?.role === 'admin' ? '/api/analytics/admin' : '/api/analytics/user';
+      const response = await fetch(`${apiUrl}${endpoint}?timeframe=${timeframe}`, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`
         }

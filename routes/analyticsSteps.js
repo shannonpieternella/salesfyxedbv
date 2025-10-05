@@ -26,10 +26,11 @@ router.get('/funnel', requireRole(['admin', 'agent']), async (req, res) => {
 
     const matchStage = { deletedAt: null, ...buildDateFilter(from, to) };
 
-    // Admin can filter by agentId, agent sees only their own
-    if (req.user.role === 'admin' && agentId) {
+    // Only admin and owner can see all data or filter by agentId
+    // Everyone else sees only their own data
+    if ((req.user.role === 'admin' || req.user.role === 'owner') && agentId) {
       matchStage.agentId = agentId;
-    } else if (req.user.role === 'agent') {
+    } else if (req.user.role !== 'admin' && req.user.role !== 'owner') {
       matchStage.agentId = req.user._id;
     }
 
@@ -114,9 +115,9 @@ router.get('/durations', requireRole(['admin', 'agent']), async (req, res) => {
 
     const matchStage = { deletedAt: null, ...buildDateFilter(from, to) };
 
-    if (req.user.role === 'admin' && agentId) {
+    if ((req.user.role === 'admin' || req.user.role === 'owner') && agentId) {
       matchStage.agentId = agentId;
-    } else if (req.user.role === 'agent') {
+    } else if (req.user.role !== 'admin' && req.user.role !== 'owner') {
       matchStage.agentId = req.user._id;
     }
 
@@ -174,9 +175,9 @@ router.get('/contact-methods', requireRole(['admin', 'agent']), async (req, res)
 
     const matchStage = { deletedAt: null, ...buildDateFilter(from, to) };
 
-    if (req.user.role === 'admin' && agentId) {
+    if ((req.user.role === 'admin' || req.user.role === 'owner') && agentId) {
       matchStage.agentId = agentId;
-    } else if (req.user.role === 'agent') {
+    } else if (req.user.role !== 'admin' && req.user.role !== 'owner') {
       matchStage.agentId = req.user._id;
     }
 
@@ -283,9 +284,9 @@ router.get('/savings', requireRole(['admin', 'agent']), async (req, res) => {
 
     const matchStage = { deletedAt: null, ...buildDateFilter(from, to) };
 
-    if (req.user.role === 'admin' && agentId) {
+    if ((req.user.role === 'admin' || req.user.role === 'owner') && agentId) {
       matchStage.agentId = agentId;
-    } else if (req.user.role === 'agent') {
+    } else if (req.user.role !== 'admin' && req.user.role !== 'owner') {
       matchStage.agentId = req.user._id;
     }
 
@@ -353,9 +354,9 @@ router.get('/checklist', requireRole(['admin', 'agent']), async (req, res) => {
       if (to) matchStage.createdAt.$lte = new Date(to);
     }
 
-    if (req.user.role === 'admin' && agentId) {
+    if ((req.user.role === 'admin' || req.user.role === 'owner') && agentId) {
       matchStage.agentId = agentId;
-    } else if (req.user.role === 'agent') {
+    } else if (req.user.role !== 'admin' && req.user.role !== 'owner') {
       matchStage.agentId = req.user._id;
     }
 

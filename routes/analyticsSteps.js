@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const mongoose = require('mongoose');
 const Company = require('../models/Company');
 const Activity = require('../models/Activity');
 const User = require('../models/User');
@@ -29,7 +30,7 @@ router.get('/funnel', requireRole(['admin', 'agent']), async (req, res) => {
     // Only admin and owner can see all data or filter by agentId
     // Everyone else sees only their own data
     if ((req.user.role === 'admin' || req.user.role === 'owner') && agentId) {
-      matchStage.agentId = agentId;
+      matchStage.agentId = new mongoose.Types.ObjectId(agentId);
     } else if (req.user.role !== 'admin' && req.user.role !== 'owner') {
       matchStage.agentId = req.user._id;
     }
@@ -116,7 +117,7 @@ router.get('/durations', requireRole(['admin', 'agent']), async (req, res) => {
     const matchStage = { deletedAt: null, ...buildDateFilter(from, to) };
 
     if ((req.user.role === 'admin' || req.user.role === 'owner') && agentId) {
-      matchStage.agentId = agentId;
+      matchStage.agentId = new mongoose.Types.ObjectId(agentId);
     } else if (req.user.role !== 'admin' && req.user.role !== 'owner') {
       matchStage.agentId = req.user._id;
     }
@@ -176,7 +177,7 @@ router.get('/contact-methods', requireRole(['admin', 'agent']), async (req, res)
     const matchStage = { deletedAt: null, ...buildDateFilter(from, to) };
 
     if ((req.user.role === 'admin' || req.user.role === 'owner') && agentId) {
-      matchStage.agentId = agentId;
+      matchStage.agentId = new mongoose.Types.ObjectId(agentId);
     } else if (req.user.role !== 'admin' && req.user.role !== 'owner') {
       matchStage.agentId = req.user._id;
     }
@@ -285,7 +286,7 @@ router.get('/savings', requireRole(['admin', 'agent']), async (req, res) => {
     const matchStage = { deletedAt: null, ...buildDateFilter(from, to) };
 
     if ((req.user.role === 'admin' || req.user.role === 'owner') && agentId) {
-      matchStage.agentId = agentId;
+      matchStage.agentId = new mongoose.Types.ObjectId(agentId);
     } else if (req.user.role !== 'admin' && req.user.role !== 'owner') {
       matchStage.agentId = req.user._id;
     }
@@ -355,7 +356,7 @@ router.get('/checklist', requireRole(['admin', 'agent']), async (req, res) => {
     }
 
     if ((req.user.role === 'admin' || req.user.role === 'owner') && agentId) {
-      matchStage.agentId = agentId;
+      matchStage.agentId = new mongoose.Types.ObjectId(agentId);
     } else if (req.user.role !== 'admin' && req.user.role !== 'owner') {
       matchStage.agentId = req.user._id;
     }

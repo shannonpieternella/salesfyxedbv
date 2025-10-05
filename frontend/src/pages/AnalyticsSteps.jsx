@@ -21,7 +21,7 @@ const AnalyticsSteps = () => {
     try {
       const token = localStorage.getItem('token');
       const baseURL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
-      const qs = user?.role === 'admin' && agentFilter ? `?agentId=${agentFilter}` : '';
+      const qs = (user?.role === 'admin' || user?.role === 'owner') && agentFilter ? `?agentId=${agentFilter}` : '';
 
       const [funnelRes, durationsRes, methodsRes, agentsRes, savingsRes, checklistRes] = await Promise.all([
         axios.get(`${baseURL}/api/analytics-steps/funnel${qs}`, {

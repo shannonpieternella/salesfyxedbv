@@ -11,11 +11,30 @@
     <script type="module" src="/src/main.jsx"></script>
 
     <!-- Vapi Voice Agent Widget -->
-    <vapi-widget assistant-id="cf0d7bad-bdbd-46e8-b178-eddf05ca6457" public-key="57b4e621-6bc1-4f5f-b835-a4e4e36c2e91"></vapi-widget>
-    <script
-      src="https://unpkg.com/@vapi-ai/client-sdk-react/dist/embed/widget.umd.js"
-      async
-      type="text/javascript"
-    ></script>
+    <vapi-widget
+      public-key="57b4e621-6bc1-4f5f-b835-a4e4e36c2e91"
+      assistant-id="cf0d7bad-bdbd-46e8-b178-eddf05ca6457"
+      mode="voice"
+      theme="dark"
+      base-bg-color="#000000"
+      accent-color="#14B8A6"
+      cta-button-color="#000000"
+      cta-button-text-color="#ffffff"
+      border-radius="large"
+      size="full"
+      position="bottom-right"
+      title="TALK WITH AI"
+      start-button-text="Start"
+      end-button-text="End Call"
+      chat-first-message="Hey, How can I help you today?"
+      chat-placeholder="Type your message..."
+      voice-show-transcript="true"
+      consent-required="true"
+      consent-title="Terms and conditions"
+      consent-content="By clicking "Agree," and each time I interact with this AI agent, I consent to the recording, storage, and sharing of my communications with third-party service providers, and as otherwise described in our Terms of Service."
+      consent-storage-key="vapi_widget_consent"
+    ></vapi-widget>
+
+    <script src="https://unpkg.com/@vapi-ai/client-sdk-react/dist/embed/widget.umd.js" async type="text/javascript"></script>
   </body>
 </html>

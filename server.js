@@ -7,7 +7,51 @@ const rateLimit = require('express-rate-limit');
 
 const app = express();
 
-app.use(helmet());
+// Configure Helmet with CSP for Vapi/Daily.co support
+app.use(helmet({
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: [
+        "'self'",
+        "'unsafe-inline'",
+        "'unsafe-eval'", // Required for Vapi/Daily.co
+        "https://unpkg.com",
+        "https://c.daily.co"
+      ],
+      connectSrc: [
+        "'self'",
+        "https://api.vapi.ai",
+        "https://*.daily.co",
+        "wss://*.daily.co",
+        "https://*.peerconnection.net"
+      ],
+      mediaSrc: [
+        "'self'",
+        "https://*.daily.co",
+        "blob:"
+      ],
+      workerSrc: [
+        "'self'",
+        "blob:"
+      ],
+      styleSrc: [
+        "'self'",
+        "'unsafe-inline'"
+      ],
+      imgSrc: [
+        "'self'",
+        "data:",
+        "blob:",
+        "https:"
+      ],
+      fontSrc: [
+        "'self'",
+        "data:"
+      ]
+    }
+  }
+}));
 
 // Trust proxy - set to 1 for nginx reverse proxy
 app.set('trust proxy', 1);

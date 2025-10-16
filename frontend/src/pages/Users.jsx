@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../hooks/useAuth';
 import axios from 'axios';
+import { adminAPI } from '../utils/api';
 
 const Users = () => {
   const { user } = useAuth();
@@ -77,6 +78,20 @@ const Users = () => {
       setTimeout(() => setSuccess(''), 3000);
     } catch (error) {
       setError(error.response?.data?.error || 'Fout bij deactiveren gebruiker');
+    }
+  };
+
+  const handleResetPassword = async (userId, userName, userEmail) => {
+    if (!confirm(`Wachtwoord resetten voor ${userName} (${userEmail}) naar standaard wachtwoord 'newuser123'?`)) return;
+
+    try {
+      const response = await adminAPI.resetUserPassword(userId);
+      const defaultPassword = response.data.defaultPassword || 'newuser123';
+      setSuccess(`Wachtwoord gereset!\n\nInloggegevens voor ${userName}:\nEmail: ${userEmail}\nWachtwoord: ${defaultPassword}\n\nDeel deze gegevens met de gebruiker.`);
+      setTimeout(() => setSuccess(''), 10000);
+    } catch (error) {
+      setError(error.response?.data?.error || 'Fout bij resetten wachtwoord');
+      setTimeout(() => setError(''), 5000);
     }
   };
 
@@ -214,23 +229,44 @@ const Users = () => {
                     </td>
                     {(user?.role === 'owner' || user?.role === 'admin') && (
                       <td style={{ padding: '12px' }}>
-                        {usr._id !== user._id && (
-                          <button
-                            onClick={() => handleDeleteUser(usr._id)}
-                            style={{
-                              padding: '6px 12px',
-                              background: 'rgba(244, 113, 181, 0.1)',
-                              border: '1px solid var(--neon-pink)',
-                              borderRadius: '6px',
-                              color: 'var(--neon-pink)',
-                              cursor: 'pointer',
-                              fontSize: '12px',
-                              fontWeight: '600'
-                            }}
-                          >
-                            Deactiveren
-                          </button>
-                        )}
+                        <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+                          {user?.role === 'owner' && (
+                            <button
+                              onClick={() => handleResetPassword(usr._id, usr.name, usr.email)}
+                              style={{
+                                padding: '6px 12px',
+                                background: 'rgba(255, 193, 7, 0.1)',
+                                border: '1px solid #ffc107',
+                                borderRadius: '6px',
+                                color: '#ffc107',
+                                cursor: 'pointer',
+                                fontSize: '12px',
+                                fontWeight: '600',
+                                whiteSpace: 'nowrap'
+                              }}
+                            >
+                              🔑 Reset PW
+                            </button>
+                          )}
+                          {usr._id !== user._id && (
+                            <button
+                              onClick={() => handleDeleteUser(usr._id)}
+                              style={{
+                                padding: '6px 12px',
+                                background: 'rgba(244, 113, 181, 0.1)',
+                                border: '1px solid var(--neon-pink)',
+                                borderRadius: '6px',
+                                color: 'var(--neon-pink)',
+                                cursor: 'pointer',
+                                fontSize: '12px',
+                                fontWeight: '600',
+                                whiteSpace: 'nowrap'
+                              }}
+                            >
+                              Deactiveren
+                            </button>
+                          )}
+                        </div>
                       </td>
                     )}
                   </tr>

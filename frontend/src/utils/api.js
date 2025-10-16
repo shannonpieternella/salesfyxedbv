@@ -107,6 +107,7 @@ export const adminAPI = {
   getDashboardStats: (params) => api.get('/admin/dashboard-stats', { params }),
   getAuditLog: (params) => api.get('/admin/audit-log', { params }),
   getSystemHealth: () => api.get('/admin/system-health'),
+  resetUserPassword: (userId) => api.post(`/admin/reset-user-password/${userId}`),
 };
 
 export default api;

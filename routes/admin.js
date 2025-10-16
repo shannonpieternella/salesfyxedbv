@@ -311,4 +311,37 @@ router.get('/system-health', authenticateToken, requireRole('owner'), async (req
   }
 });
 
+router.post('/reset-user-password/:userId', authenticateToken, requireRole('owner'), async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const DEFAULT_PASSWORD = process.env.DEFAULT_USER_PASSWORD || 'newuser123';
+
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    if (user.role === 'owner' && user._id.toString() !== req.user._id.toString()) {
+      return res.status(403).json({ error: 'Cannot reset password for another owner' });
+    }
+
+    user.password_hash = DEFAULT_PASSWORD;
+    await user.save();
+
+    res.json({
+      message: 'Password reset successfully',
+      user: {
+        _id: user._id,
+        name: user.name,
+        email: user.email
+      },
+      defaultPassword: DEFAULT_PASSWORD
+    });
+  } catch (error) {
+    console.error('Reset password error:', error);
+    res.status(500).json({ error: 'Server error resetting password' });
+  }
+});
+
 module.exports = router;

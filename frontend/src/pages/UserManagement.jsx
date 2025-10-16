@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../hooks/useAuth.jsx';
-import { usersAPI } from '../utils/api';
+import { usersAPI, adminAPI } from '../utils/api';
 import { formatDate, getRoleText } from '../utils/auth';
 import Modal from '../components/Modal.jsx';
 
@@ -81,7 +81,7 @@ const UserManagement = () => {
 
       const response = await usersAPI.updateUser(userId, updates);
       // Refetch users to get updated sponsor data
-      await fetchUsers();
+      await loadUsers();
       setShowModal(false);
 
       if (isTransferring) {
@@ -106,11 +106,23 @@ const UserManagement = () => {
     }
   };
 
+  const handleResetPassword = async (userId, userName, userEmail) => {
+    if (!confirm(`Reset password for ${userName} (${userEmail}) to default password 'newuser123'?`)) return;
+
+    try {
+      const response = await adminAPI.resetUserPassword(userId);
+      const defaultPassword = response.data.defaultPassword || 'newuser123';
+      alert(`Password reset successfully!\n\nLogin details for ${userName}:\nEmail: ${userEmail}\nPassword: ${defaultPassword}\n\nPlease share these credentials with the user.`);
+    } catch (error) {
+      alert(error.response?.data?.error || 'Error resetting password');
+    }
+  };
+
   const handleAssignSponsor = async (userId, sponsorId) => {
     try {
       await usersAPI.updateUser(userId, { sponsorId: sponsorId || null });
       // Refetch users to get updated sponsor data with populated fields
-      await fetchUsers();
+      await loadUsers();
       setShowModal(false);
       alert('Sponsor/Team Leader succesvol toegewezen!');
     } catch (error) {
@@ -455,6 +467,25 @@ const UserManagement = () => {
                                 }}
                               >
                                 👥 ASSIGN
+                              </button>
+                            )}
+
+                            {user?.role === 'owner' && (
+                              <button
+                                onClick={() => handleResetPassword(userItem._id, userItem.name, userItem.email)}
+                                style={{
+                                  background: 'rgba(255, 193, 7, 0.2)',
+                                  border: '1px solid #ffc107',
+                                  color: '#ffc107',
+                                  padding: '4px 8px',
+                                  borderRadius: '4px',
+                                  fontSize: '10px',
+                                  cursor: 'pointer',
+                                  fontWeight: '600',
+                                  textTransform: 'uppercase'
+                                }}
+                              >
+                                🔑 RESET PW
                               </button>
                             )}
 
